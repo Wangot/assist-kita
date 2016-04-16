@@ -12,7 +12,7 @@ module.exports = function(req, res) {
     var paramsObj = {
         title: req.body.title,
         content: req.body.content,
-        maker_id: req.user,
+        maker_id: req.user.id,
     };
 
     /*var paramsObj = {
@@ -36,18 +36,13 @@ module.exports = function(req, res) {
             paramsObj.parent_id = ticket.id;
             var chikkaService = new sChikkaSms();
             return chikkaService.send(paramsObj.content, ticket.Maker.username).then(function(messageData){  
-                console.log('test1');
-                console.log(models.Ticket);
                 return models.Ticket.create(
                     paramsObj, 
                     {transaction: t}
                 ).then(function(subTicket){
-                    console.log('test2');
-                    if(req.body.status && req.body.content == "CLOSED"){
-                        console.log('test3');
+                    if(req.body.status && req.body.status == "CLOSED"){
                         return ticket.updateAttributes({status: "CLOSED"}, {transaction: t})
                     }else{
-                        console.log('test4');
                         return ticket
                     }
                 });
