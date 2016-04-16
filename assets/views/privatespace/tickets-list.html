@@ -34,7 +34,7 @@
           <th scope="row">{{ticket.id}}</th>
           <td>{{ticket.maker.Username}}</td>
           <td>{{ticket.maker.first_name}} {{ticket.maker.last_name}}</td>
-          <td>Manila</td>
+          <td>{{ticket.content}}</td>
           <td>
             <a href="#/ticket/{{ticket.id}}" class="btn btn-primary" tooltip="Reply"><i class="fa fa-reply"></i></a> 
             <a ng-click="vm.openHospitalModal()" class="btn btn-primary"><i class="fa fa-user"></i></a>
