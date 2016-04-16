@@ -16,3 +16,11 @@ body, html {
 .angular-leaflet-map {
 	position: absolute !important;
 }
+
+.search-container {
+	position: absolute;
+	font-size: 50px;
+	top: 100px;
+	left: 10px;
+	cursor: pointer;
+}

@@ -7,7 +7,7 @@ var angular = require('angular');
 var PublicModuleBaseController = require('../base/PublicModuleBaseController');
 var CoreObjectUtilities = require('../../core/utilities/CoreObjectUtilities');
 
-function landingController($routeParams, geolocation, $scope) {
+function landingController($routeParams, geolocation, $scope, $uibModal) {
   PublicModuleBaseController.call(this);
 
   var vm = this;
@@ -83,6 +83,25 @@ function landingController($routeParams, geolocation, $scope) {
 	        vm.position.lat = args.model.lat;
 	        vm.position.lng = args.model.lng;
 	});
+
+  vm.openSearchModal = function() {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: '/views/privatespace/modals/landingSearch.ejs',
+      controller: 'LandingSearchController',
+      controllerAs: 'vm',
+      resolve: {
+      }
+    });
+
+    modalInstance.result
+    .then(function () {
+
+    }, function () {
+
+    });
+  }
+  
 
     /*
 

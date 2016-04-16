@@ -10,3 +10,4 @@ privatespaceModule.controller('UserController', require('./UserController'));
 privatespaceModule.controller('UserFormController', require('./UserFormController'));
 
 privatespaceModule.controller('HospitalInfoController', require('./modals/HospitalInfoController'));
+privatespaceModule.controller('LandingSearchController', require('./modals/LandingSearchController'));
