@@ -15,3 +15,4 @@ privatespaceModule.controller('LandingSearchController', require('./modals/Landi
 privatespaceModule.controller('HealthCenterListController', require('./HealthCenterListController'));
 privatespaceModule.controller('HealthCenterFormController', require('./HealthCenterFormController'));
 privatespaceModule.controller('RequestAssistanceController', require('./modals/RequestAssistanceController'));
+privatespaceModule.controller('SurplusController', require('./modals/SurplusController'));

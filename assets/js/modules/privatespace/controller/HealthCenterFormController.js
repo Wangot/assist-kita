@@ -49,6 +49,49 @@ function HealthCenterFormController($routeParams, $uibModal, SimpleRestClientSer
     });    
   }
 
+  vm.checkExpiryDate = function(date) {
+    var ret = false;
+
+    var today = moment();
+    var exp = moment(date);
+
+    if (exp.diff(today, 'month') <= 6) {
+      ret = 'orange';
+    }
+
+    if (exp.diff(today, 'month') >= 6 && exp.diff(today, 'month') <= 12) {
+      ret = 'red';
+    }    
+
+    return ret;
+  }
+
+  vm.openSurplusModal = function(inventoryId) {
+    var Info = {
+      inventory_id: inventoryId,
+      type: 'SURPLUS'
+    }
+
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: '/views/privatespace/modals/requestAssistance.ejs',
+      controller: 'SurplusController',
+      controllerAs: 'vm',
+      resolve: {
+        Info: function() {
+          return Info;
+        }
+      }
+    });
+
+    modalInstance.result
+    .then(function () {
+
+    }, function () {
+
+    }); 
+  }
+
 
   _init();
 

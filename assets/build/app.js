@@ -45,7 +45,7 @@ var app = angular.module('app.core',
 require('./modules/core');
 require('./modules/privatespace/');
 require('./modules/public/');
-},{"./modules/core":5,"./modules/privatespace/":24,"./modules/public/":32,"angular":"angular","angular-google-maps":"angular-google-maps","angular-loading-bar":"angular-loading-bar","angular-local-storage":"angular-local-storage","angular-resource":"angular-resource","angular-route":"angular-route","angular-sanitize":"angular-sanitize","angular-simple-logger":"angular-simple-logger","angular-ui-bootstrap":"angular-ui-bootstrap","angular-ui-notification":"angular-ui-notification","angularjs-geolocation":"angularjs-geolocation","lodash":35,"ui-select":"ui-select"}],2:[function(require,module,exports){
+},{"./modules/core":5,"./modules/privatespace/":25,"./modules/public/":33,"angular":"angular","angular-google-maps":"angular-google-maps","angular-loading-bar":"angular-loading-bar","angular-local-storage":"angular-local-storage","angular-resource":"angular-resource","angular-route":"angular-route","angular-sanitize":"angular-sanitize","angular-simple-logger":"angular-simple-logger","angular-ui-bootstrap":"angular-ui-bootstrap","angular-ui-notification":"angular-ui-notification","angularjs-geolocation":"angularjs-geolocation","lodash":36,"ui-select":"ui-select"}],2:[function(require,module,exports){
 /**
  *
  */
@@ -418,6 +418,49 @@ function HealthCenterFormController($routeParams, $uibModal, SimpleRestClientSer
     });    
   }
 
+  vm.checkExpiryDate = function(date) {
+    var ret = false;
+
+    var today = moment();
+    var exp = moment(date);
+
+    if (exp.diff(today, 'month') <= 6) {
+      ret = 'orange';
+    }
+
+    if (exp.diff(today, 'month') >= 6 && exp.diff(today, 'month') <= 12) {
+      ret = 'red';
+    }    
+
+    return ret;
+  }
+
+  vm.openSurplusModal = function(inventoryId) {
+    var Info = {
+      inventory_id: inventoryId,
+      type: 'SURPLUS'
+    }
+
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: '/views/privatespace/modals/requestAssistance.ejs',
+      controller: 'SurplusController',
+      controllerAs: 'vm',
+      resolve: {
+        Info: function() {
+          return Info;
+        }
+      }
+    });
+
+    modalInstance.result
+    .then(function () {
+
+    }, function () {
+
+    }); 
+  }
+
 
   _init();
 
@@ -691,7 +734,8 @@ privatespaceModule.controller('LandingSearchController', require('./modals/Landi
 privatespaceModule.controller('HealthCenterListController', require('./HealthCenterListController'));
 privatespaceModule.controller('HealthCenterFormController', require('./HealthCenterFormController'));
 privatespaceModule.controller('RequestAssistanceController', require('./modals/RequestAssistanceController'));
-},{"./HealthCenterFormController":14,"./HealthCenterListController":15,"./TicketController":16,"./TicketFormController":17,"./UserController":18,"./UserFormController":19,"./modals/HospitalInfoController":21,"./modals/LandingSearchController":22,"./modals/RequestAssistanceController":23,"angular":"angular"}],21:[function(require,module,exports){
+privatespaceModule.controller('SurplusController', require('./modals/SurplusController'));
+},{"./HealthCenterFormController":14,"./HealthCenterListController":15,"./TicketController":16,"./TicketFormController":17,"./UserController":18,"./UserFormController":19,"./modals/HospitalInfoController":21,"./modals/LandingSearchController":22,"./modals/RequestAssistanceController":23,"./modals/SurplusController":24,"angular":"angular"}],21:[function(require,module,exports){
 /**
  *
  */
@@ -755,8 +799,8 @@ function RequestAssistanceController($routeParams, $uibModalInstance, $http, Hea
   PrivatespaceModuleBaseController.call(this);
   var vm = this;
 
-  console.log(HealthCenter);
   vm.Info = HealthCenter;
+  vm.title = 'Request Assistance';
 
   vm.close = function () {
 	$uibModalInstance.dismiss('cancel');
@@ -783,6 +827,40 @@ angular.extend(RequestAssistanceController.prototype, {});
 
 module.exports = RequestAssistanceController;
 },{"../../../core/utilities/CoreObjectUtilities":10,"../../base/PrivatespaceModuleBaseController":11,"angular":"angular"}],24:[function(require,module,exports){
+/**
+ *
+ */
+ 'use strict';
+
+var angular = require('angular');
+var PrivatespaceModuleBaseController = require('../../base/PrivatespaceModuleBaseController');
+var CoreObjectUtilities = require('../../../core/utilities/CoreObjectUtilities');
+
+function SurplusController($routeParams, $uibModalInstance, $http, Info) {
+  PrivatespaceModuleBaseController.call(this);
+  var vm = this;
+
+  vm.Info = Info;
+  vm.title = 'Surplus Share';
+
+  vm.close = function () {
+	$uibModalInstance.dismiss('cancel');
+  };
+
+  vm.sendRequest = function() {
+  	$http.post('api/usages/surplus', vm.Info)
+  	.then(function(res) {
+      $uibModalInstance.close(res);
+  	});
+  }
+}
+
+CoreObjectUtilities.inherit(SurplusController, PrivatespaceModuleBaseController);
+
+angular.extend(SurplusController.prototype, {});
+
+module.exports = SurplusController;
+},{"../../../core/utilities/CoreObjectUtilities":10,"../../base/PrivatespaceModuleBaseController":11,"angular":"angular"}],25:[function(require,module,exports){
 'use strict';
 
 var angular = require('angular');
@@ -796,7 +874,7 @@ require('./service')
 
 require('./controller')
 
-},{"./config/routes.js":13,"./controller":20,"./service":26,"angular":"angular"}],25:[function(require,module,exports){
+},{"./config/routes.js":13,"./controller":20,"./service":27,"angular":"angular"}],26:[function(require,module,exports){
 'use strict';
 
 var angular = require('angular');
@@ -815,14 +893,14 @@ angular.extend(TestService.prototype, {
 });
 
 module.exports = TestService;
-},{"../../core/utilities/CoreObjectUtilities":10,"../base/PrivatespaceModuleBaseService":12,"angular":"angular"}],26:[function(require,module,exports){
+},{"../../core/utilities/CoreObjectUtilities":10,"../base/PrivatespaceModuleBaseService":12,"angular":"angular"}],27:[function(require,module,exports){
 'use strict';
 
 var angular = require('angular');
 var privatespaceModule = angular.module('app.privatespace');
 
 privatespaceModule.service('TestService', require('./TestService.js'));
-},{"./TestService.js":25,"angular":"angular"}],27:[function(require,module,exports){
+},{"./TestService.js":26,"angular":"angular"}],28:[function(require,module,exports){
 /**
  *
  */
@@ -842,7 +920,7 @@ angular.extend(PublicModuleBaseController.prototype, {
 });
 
 module.exports = PublicModuleBaseController;
-},{"../../core/base/CoreModuleBaseController":2,"../../core/utilities/CoreObjectUtilities":10,"angular":"angular"}],28:[function(require,module,exports){
+},{"../../core/base/CoreModuleBaseController":2,"../../core/utilities/CoreObjectUtilities":10,"angular":"angular"}],29:[function(require,module,exports){
 /**
  *
  */
@@ -864,7 +942,7 @@ angular.extend(PublicModuleBaseService.prototype, {
 });
 
 module.exports = PublicModuleBaseService;
-},{"../../core/base/CoreModuleBaseService":3,"../../core/utilities/CoreObjectUtilities":10,"angular":"angular"}],29:[function(require,module,exports){
+},{"../../core/base/CoreModuleBaseService":3,"../../core/utilities/CoreObjectUtilities":10,"angular":"angular"}],30:[function(require,module,exports){
 /**
  *
  */
@@ -883,7 +961,7 @@ CoreObjectUtilities.inherit(PublicIndexController, PublicModuleBaseController);
 angular.extend(PublicIndexController.prototype, {});
 
 module.exports = PublicIndexController;
-},{"../../core/utilities/CoreObjectUtilities":10,"../base/PublicModuleBaseController":27,"angular":"angular"}],30:[function(require,module,exports){
+},{"../../core/utilities/CoreObjectUtilities":10,"../base/PublicModuleBaseController":28,"angular":"angular"}],31:[function(require,module,exports){
 'use strict';
 
 var angular = require('angular');
@@ -892,7 +970,7 @@ var publicModule = angular.module('app.public');
 publicModule.controller('TestController', require('./TestController'));
 
 publicModule.controller('landingController', require('./landingController'));
-},{"./TestController":29,"./landingController":31,"angular":"angular"}],31:[function(require,module,exports){
+},{"./TestController":30,"./landingController":32,"angular":"angular"}],32:[function(require,module,exports){
 /**
  *
  */
@@ -1080,7 +1158,7 @@ CoreObjectUtilities.inherit(landingController, PublicModuleBaseController);
 angular.extend(landingController.prototype, {});
 
 module.exports = landingController;
-},{"../../core/utilities/CoreObjectUtilities":10,"../base/PublicModuleBaseController":27,"angular":"angular"}],32:[function(require,module,exports){
+},{"../../core/utilities/CoreObjectUtilities":10,"../base/PublicModuleBaseController":28,"angular":"angular"}],33:[function(require,module,exports){
 'use strict';
 
 var angular = require('angular');
@@ -1093,7 +1171,7 @@ require('./service')
 require('./controller')
 // privatespaceModule.controller('MainController', require('./controller/mainController.js'));
 
-},{"./controller":30,"./service":34,"angular":"angular"}],33:[function(require,module,exports){
+},{"./controller":31,"./service":35,"angular":"angular"}],34:[function(require,module,exports){
 'use strict';
 
 var angular = require('angular');
@@ -1112,9 +1190,9 @@ angular.extend(TestService.prototype, {
 });
 
 module.exports = TestService;
-},{"../../core/utilities/CoreObjectUtilities":10,"../base/PublicModuleBaseService":28,"angular":"angular"}],34:[function(require,module,exports){
-arguments[4][26][0].apply(exports,arguments)
-},{"./TestService.js":33,"angular":"angular","dup":26}],35:[function(require,module,exports){
+},{"../../core/utilities/CoreObjectUtilities":10,"../base/PublicModuleBaseService":29,"angular":"angular"}],35:[function(require,module,exports){
+arguments[4][27][0].apply(exports,arguments)
+},{"./TestService.js":34,"angular":"angular","dup":27}],36:[function(require,module,exports){
 (function (global){
 /**
  * @license

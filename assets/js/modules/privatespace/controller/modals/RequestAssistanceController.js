@@ -11,8 +11,8 @@ function RequestAssistanceController($routeParams, $uibModalInstance, $http, Hea
   PrivatespaceModuleBaseController.call(this);
   var vm = this;
 
-  console.log(HealthCenter);
   vm.Info = HealthCenter;
+  vm.title = 'Request Assistance';
 
   vm.close = function () {
 	$uibModalInstance.dismiss('cancel');
