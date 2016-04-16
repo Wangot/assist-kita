@@ -41,10 +41,10 @@ var browserify = require('browserify'),
 
 // build css
 var options = {
-    bundles : {
-      // script : path.join( dstDir, 'bundle.js' ),
-      style : path.join( assetPath, 'stylesheets', 'plugins.css' )
-    }
+    // bundles : {
+    //   // script : path.join( dstDir, 'bundle.js' ),
+    //   style : path.join( assetPath, 'stylesheets', 'plugins.css' )
+    // }
   };
 
 p = parcelify(bundler, options);
