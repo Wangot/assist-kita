@@ -30,6 +30,7 @@ User.findOrAddChikkaSms = function(chikkaSms){
             // create
             var newUser = {
                 username: chikkaSms.mobile_number,
+                type: "PATIENT",
                 Profile: {}
             };
 

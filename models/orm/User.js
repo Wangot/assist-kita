@@ -19,6 +19,10 @@ module.exports = function(sequelize, DataTypes) {
                 isEmail: true
             }
         },
+        type: {
+            type: DataTypes.ENUM('PATIENT', 'ALL'),
+            defaultValue: 'ALL'
+        },
         password: DataTypes.STRING(100),
         password_reset_token: DataTypes.STRING(100),
         password_reset_requested_at: DataTypes.DATE,
