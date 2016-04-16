@@ -12,7 +12,15 @@ module.exports = function(req, res) {
     };*/
 
     return models.sequelize.transaction(function (t) { 
-        return models.Usage.create(params, {transaction: t})
+        return models.Inventory.findOne({
+            where: {id: params.inventory_id}
+        }).then(function(inventory){
+            return inventory.updateAttributes({
+                consumed: inventory.consumed + params.amount
+            }, {transaction: t}).then(function(){
+                return models.Usage.create(params, {transaction: t});
+            })
+        })
     }).then(function(usage){
         res.renderJsonSuccess({ Usage: usage });
     }).catch(function(err){ console.log(err)
