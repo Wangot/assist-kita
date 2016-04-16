@@ -2,6 +2,8 @@ module.exports = function(sequelize, DataTypes) {
     var Inventory = sequelize.define("Inventory", {
         unit: DataTypes.STRING(255),
         dosage: DataTypes.STRING(255),
+        batch_code: DataTypes.STRING(255),
+        lot_number: DataTypes.STRING(255),
         stock: DataTypes.INTEGER,
         date_expire: {
             type: DataTypes.DATE,
