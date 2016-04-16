@@ -39,8 +39,13 @@ module.exports = function(req, res) {
                 return models.Ticket.create(
                     paramsObj, 
                     {transaction: t}
-                );
-                
+                ).then(function(subTicket){
+                    if(req.body.status && req.body.content == "CLOSED"){
+                        return ticket.updateAttributes({status: "CLOSED"}, {transaction: t})
+                    }else{
+                        return ticket
+                    }
+                });
             });
         });
     }).then(function(result){
