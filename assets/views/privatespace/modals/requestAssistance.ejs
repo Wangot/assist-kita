@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h4 class="modal-title">Request Assistance</h4>
+</div>
+<div class="modal-body">
+	<div class="form-group">
+		<label>Stock</label>
+		<input type="text" class="form-control" ng-model="vm.Info.amount">
+	</div>
+	<div class="form-group">
+		<label>Comment / Message</label>
+		<textarea class="form-control" ng-model="vm.Info.description"></textarea>
+	</div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.close()">Close</button>
+    <button type="button" class="btn btn-primary" ng-click="vm.sendRequest()">Send Request</button>
+</div>    
