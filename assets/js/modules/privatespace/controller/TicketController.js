@@ -14,7 +14,7 @@ function TicketController($routeParams, $uibModal, SimpleRestClientService) {
   function _init() {
   	var ticketsModel = SimpleRestClientService('tickets');
 
-  	ticketsModel.get()
+  	ticketsModel.get({status: 'ACTIVE'})
   	.then(function(res) {
   		vm.Tickets = res.Ticket;
   	});
