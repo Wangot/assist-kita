@@ -3,7 +3,11 @@ var models = require(path.resolve("./models/orm"));
 
 module.exports = function(req, res) {
     models.HealthCenter.findOne({ 
-        where: {id: req.params.id}
+        where: {id: req.params.id},
+        include: [
+            models.AssistanceRequest,
+            models.Inventory
+        ]
     }).then(function(resultObj){
         if(resultObj){
             res.renderJsonSuccess({ HealthCenter: resultObj });

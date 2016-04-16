@@ -50,7 +50,8 @@ module.exports = function(sequelize, DataTypes) {
         tableName: 'health_center',
         classMethods: {
             associate: function(models) {
-                // HealthCenter.hasOne(models.User)
+                HealthCenter.hasMany(models.AssistanceRequest),
+                HealthCenter.hasMany(models.Inventory)
             }
         },
         hooks: {

@@ -19,55 +19,55 @@ router.get('/kmits/:start', function(req, res, next) {
     console.log(req.params.start);
 
     //Set the headers
-    //var headers = {
-    //    // 'User-Agent':       'Super Agent/0.0.1',
-    //    'Content-Type':     'application/x-www-form-urlencoded'
-    //}
-    //
-    //for(var x=0; x<10; x++) {
-    //    // Configure the request
-    //    var options = {
-    //        url: 'http://thinkopen2016.com/api/kmits/list/' + ( parseInt(req.params.start, 10) + (x * 20) ),
-    //        method: 'GET',
-    //        headers: headers
-    //        // qs: {'key1': 'xxx', 'key2': 'yyy'}
-    //    }
-    //    console.log(options.url);
-    //    //Start the request
-    //    request(options, function (error, response, body) {
-    //        if (!error && response.statusCode == 200) {
-    //            // Print out the response body
-    //            // console.log(body)
-    //            var jsonData = JSON.parse(body);
-    //            var newData = [];
-    //            for (var i = jsonData.items.length - 1; i >= 0; i--) {
-    //                var newItem = {};
-    //                var items = jsonData.items[i];
-    //                for(var key in items){
-    //                    if(key == '_id'){
-    //                        // console.log(items[key].$oid);
-    //                        newItem["kmits_id"] = items[key].$oid;
-    //                    }else{
-    //                        newItem[slug(key, { replacement: "_", lower: "true"})] = items[key];
-    //                    }
-    //                }
-    //                newData.push(newItem);
-    //            };
-    //
-    //            models.HealthCenter.bulkCreate(newData).then(function() {
-    //                console.log(options.url);
-    //            }).catch(function(err){
-    //                console.log(err);
-    //            })
-    //
-    //
-    //            // console.log(newData);
-    //        }else{
-    //            console.log(error);
-    //        }
-    //
-    //    })
-    //}
+    var headers = {
+       // 'User-Agent':       'Super Agent/0.0.1',
+       'Content-Type':     'application/x-www-form-urlencoded'
+    }
+    
+    for(var x=0; x<10; x++) {
+       // Configure the request
+       var options = {
+           url: 'http://thinkopen2016.com/api/kmits/list/' + ( parseInt(req.params.start, 10) + (x * 20) ),
+           method: 'GET',
+           headers: headers
+           // qs: {'key1': 'xxx', 'key2': 'yyy'}
+       }
+       console.log(options.url);
+       //Start the request
+       request(options, function (error, response, body) {
+           if (!error && response.statusCode == 200) {
+               // Print out the response body
+               // console.log(body)
+               var jsonData = JSON.parse(body);
+               var newData = [];
+               for (var i = jsonData.items.length - 1; i >= 0; i--) {
+                   var newItem = {};
+                   var items = jsonData.items[i];
+                   for(var key in items){
+                       if(key == '_id'){
+                           // console.log(items[key].$oid);
+                           newItem["kmits_id"] = items[key].$oid;
+                       }else{
+                           newItem[slug(key, { replacement: "_", lower: "true"})] = items[key];
+                       }
+                   }
+                   newData.push(newItem);
+               };
+    
+               models.HealthCenter.bulkCreate(newData).then(function() {
+                   console.log(options.url);
+               }).catch(function(err){
+                   console.log(err);
+               })
+    
+    
+               // console.log(newData);
+           }else{
+               console.log(error);
+           }
+    
+       })
+    }
 
     console.log(req.query);
 
