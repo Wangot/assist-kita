@@ -14,7 +14,7 @@ module.exports = function(req, res, next){
         message : req.body.message,
         mobile_number: req.body.mobile_number,
         shortcode : req.body.shortcode,
-        timestamp : req.body.timestamp,
+        timestamp : null,
         request_id :req.body.request_id
     };
 
@@ -61,7 +61,7 @@ module.exports = function(req, res, next){
             return models.sequelize.transaction(function (t) {
                 return models.AssistanceRequest.create(params, {transaction: t})
             }).then(function(assistanceRequest){
-                //res.renderJsonSuccess({ AssistanceRequest: assistanceRequest });
+                res.renderJsonSuccess({ AssistanceRequest: assistanceRequest });
             }).catch(function(err){ console.log(err)
                 //res.renderJsonFail('Failed saving the Assistance Request', err.errors);
             });
@@ -95,7 +95,7 @@ module.exports = function(req, res, next){
             return models.sequelize.transaction(function (t) {
                 return models.AssistanceRequest.create(params, {transaction: t})
             }).then(function (assistanceRequest) {
-                //res.renderJsonSuccess({ AssistanceRequest: assistanceRequest });
+                res.renderJsonSuccess({ AssistanceRequest: assistanceRequest });
             }).catch(function (err) {
                 console.log(err)
                 //res.renderJsonFail('Failed saving the Assistance Request', err.errors);
