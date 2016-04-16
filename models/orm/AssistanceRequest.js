@@ -17,7 +17,9 @@ module.exports = function(sequelize, DataTypes) {
         classMethods: {
             associate: function(models) {
                 AssistanceRequest.belongsTo(models.Inventory),
-                AssistanceRequest.belongsTo(models.HealthCenter)
+                AssistanceRequest.belongsTo(models.HealthCenter),
+                AssistanceRequest.belongsTo(models.GenericName),
+                AssistanceRequest.belongsTo(models.MedicineForm)
             }
         },
         hooks: {

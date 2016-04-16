@@ -1,8 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
     var Usage = sequelize.define("Usage", {
         note: {
-            type:  DataTypes.TEXT,
-            defaultValue: ''
+            type:  DataTypes.TEXT
         },
         amount: {
             type: DataTypes.INTEGER,
