@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
     var HealthCenter = sequelize.define("HealthCenter", {
-        type:{
-            health_facility_type: DataTypes.STRING(100),
+        health_facility_type:{
+            type: DataTypes.STRING(100),
             defaultValue: ''
         },
         province_name_psgc: {
@@ -30,12 +30,10 @@ module.exports = function(sequelize, DataTypes) {
             defaultValue: ''
         },
         longitude: {
-            type:  DataTypes.STRING(100),
-            defaultValue: ''
+            type:  DataTypes.DECIMAL(18,12)
         },
         latitude: {
-            type:  DataTypes.STRING(100),
-            defaultValue: ''
+            type:  DataTypes.DECIMAL(18,12)
         },
         city_municipality_name: {
             type:  DataTypes.STRING(100),
