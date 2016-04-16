@@ -7,7 +7,7 @@ var angular = require('angular');
 var PrivatespaceModuleBaseController = require('../../base/PrivatespaceModuleBaseController');
 var CoreObjectUtilities = require('../../../core/utilities/CoreObjectUtilities');
 
-function HospitalInfoController($routeParams) {
+function HospitalInfoController($routeParams, $uibModalInstance) {
   PrivatespaceModuleBaseController.call(this);
   var vm = this;
 
