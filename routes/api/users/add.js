@@ -12,11 +12,6 @@ module.exports = function(req, res) {
             middle_name: 'a',
             last_name: 'yyyyyy'
         },
-        Websites: [
-            {
-                id: 1
-            }
-        ],
         Roles: [
             {
                 id: 1
