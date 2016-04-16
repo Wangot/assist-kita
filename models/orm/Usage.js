@@ -22,9 +22,9 @@ module.exports = function(sequelize, DataTypes) {
         instanceMethods: {
         },
         classMethods: {
-        },
-        associate: function(models) {
-            Usage.belongsTo(models.Inventory);
+            associate: function(models) {
+                Usage.belongsTo(models.Inventory);
+            }
         },
     });
 

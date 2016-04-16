@@ -6,5 +6,6 @@ require('./health-centers')(router);
 require('./tickets')(router);
 require('./users')(router);
 require('./assistance-request')(router);
+require('./usages')(router);
 
 module.exports = router;
