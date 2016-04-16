@@ -13,7 +13,7 @@ module.exports = function(req, res) {
     };*/
 
     return models.sequelize.transaction(function (t) { 
-        return models.AssistanceRequest(params, {transaction: t})
+        return models.AssistanceRequest.create(params, {transaction: t})
     }).then(function(assistanceRequest){
         res.renderJsonSuccess({ AssistanceRequest: assistanceRequest });
     }).catch(function(err){ console.log(err)
