@@ -7,6 +7,10 @@ module.exports = function(sequelize, DataTypes) {
                 notEmpty: true
             }
         },
+        status: {
+            type: DataTypes.ENUM('ACTIVE', 'INACTIVE', 'PENDING', 'CANCELLED'),
+            defaultValue: 'ACTIVE'
+        },
         description: DataTypes.TEXT
     }, 
     {

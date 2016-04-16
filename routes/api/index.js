@@ -5,5 +5,6 @@ var router = express.Router();
 require('./health-centers')(router);
 require('./tickets')(router);
 require('./users')(router);
+require('./assistance-request')(router);
 
 module.exports = router;
