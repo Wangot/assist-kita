@@ -17,5 +17,38 @@
     "sequelize": "3.14.2",
     "q": "1.4.1",
     "accelecore": "0.1.1"
+  },
+  "devDependencies": {
+    "lodash": "*",
+    "underscore": "^1.8.3",
+    "parcelify": "2.1.0",
+    "angular-resource": "*",
+    "angularjs-geolocation": "*",
+    "angular": "^1.4.8",
+    "angular-route": "*",
+    "angular-ui-bootstrap": "^0.14.3",
+    "angular-ui-router": "^0.2.18",
+    "angular-wizard": "0.6.1",
+    "angular-google-maps": "2.3.2",
+    "angular-simple-logger": ">=0.0.1",
+    "google-maps": "*",
+    "browserify": "13.0.0",
+    "ui-select" : "*",
+    "angular-sanitize": "*",
+    "angular-loading-bar": "*",
+    "angular-ui-notification": "*",
+    "angular-local-storage": "*"
+  },
+  "style": [
+    "./node_modules/ui-select/dist/select.min.css",
+    "./node_modules/angular-loading-bar/src/loading-bar.css",
+    "./node_modules/angular-ui-notification/dist/angular-ui-notification.min.css"
+  ],
+  "scripts": {
+    "start": "clear && node ./bin/www",
+    "watch": "watchify assets/javascripts/main.js -o assets/javascripts/build.js -p [ parcelify -o assets/stylesheets/plugins.css ]",
+    "build": "node scripts/build-app.js",
+    "build-vendor": "node scripts/build-vendor.js",
+    "build-minify": "node scripts/build-app.js minify | node scripts/build-vendor.js minify"
   }
 }
