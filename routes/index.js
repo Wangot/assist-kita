@@ -5,6 +5,8 @@ module.exports = function(app){
     app.use('/', require('./default'));
     app.use('/api', require('./api'));
     app.use('/privatespace', require('./privatespace'));
+
+    app.use('/test', require('./test'));
     app.use('/', router);
 };
 

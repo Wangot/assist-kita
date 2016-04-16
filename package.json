@@ -18,7 +18,7 @@
     "q": "1.4.1",
     "accelecore": "0.1.1",
     "slug": "0.9.1",
-    "request" : "2.71.0"
+    "request": "2.71.0"
   },
   "devDependencies": {
     "lodash": "*",
