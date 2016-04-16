@@ -31,8 +31,9 @@ module.exports = function(sequelize, DataTypes) {
         },
         classMethods: {
         associate: function(models) {
+                Inventory.belongsTo(models.HealthCenter),
                 Inventory.belongsTo(models.GenericName),
-                Inventory.belongsTo(models.Form)
+                Inventory.belongsTo(models.MedicineForm)
             }
         },
     });

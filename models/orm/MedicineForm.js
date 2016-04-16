@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
-    var Form = sequelize.define("Form", {
+    var MedicineForm = sequelize.define("MedicineForm", {
         name: {
-            type:  DataTypes.STRING(255),
+            type:  DataTypes.STRING(100),
             allowNull: false,
             validate: {
                 notEmpty: true
@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     {
         underscored: true,
-        tableName: 'form',
+        tableName: 'medicine_form',
         instanceMethods: {
         },
         classMethods: {
@@ -24,5 +24,5 @@ module.exports = function(sequelize, DataTypes) {
         },
     });
 
-    return Form;
+    return MedicineForm;
 };
