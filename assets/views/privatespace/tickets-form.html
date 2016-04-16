@@ -24,17 +24,17 @@
       <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 
         <div class="form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Content
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Message Content
           </label>
           <div class="col-md-6 col-sm-6 col-xs-12">
-            The quick brown fox jumps over the lazy dog, I have something that i need to something
+            {{vm.Ticket.content}}
           </div>
         </div>
         <div class="form-group">
           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Comment / Initial Diagnosis<span class="required">*</span>
           </label>
           <div class="col-md-6 col-sm-6 col-xs-12">
-            <textarea id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12" data-parsley-id="0728" style="height:300px;" ng-model="vm.ticketContent"></textarea><ul class="parsley-errors-list" id="parsley-id-0728"></ul>
+            <textarea id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12" data-parsley-id="0728" style="height:300px;" ng-model="vm.ticketReplyContent"></textarea><ul class="parsley-errors-list" id="parsley-id-0728"></ul>
           </div>
         </div>
         <div class="ln_solid"></div>

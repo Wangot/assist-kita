@@ -12,13 +12,26 @@ function TicketController($routeParams, SimpleRestClientService, $location) {
   var vm = this;
 
   vm.ticketId = $routeParams.id;
-  vm.ticketContent = null;
+  vm.ticketReplyContent = null;
+  vm.Ticket = {};
+
+  function _init() {
+  	var ticketModel = SimpleRestClientService('tickets/'+ vm.ticketId);
+
+  	ticketModel.get()
+  	.then(function(res) {
+  		 console.log(res);
+  		 vm.Ticket = res.Tickets;
+  	});
+
+
+  }
 
   vm.reply = function(toClose) {
   	var ticketModel = SimpleRestClientService('tickets/'+ vm.ticketId +'/sub-tickets');
 
   	var data = {
-  		content: vm.ticketContent
+  		content: vm.ticketReplyContent
   	};
 
   	if (toClose) data.status = 'CLOSED';
@@ -31,6 +44,7 @@ function TicketController($routeParams, SimpleRestClientService, $location) {
 
   }
 
+  _init();
 }
 
 CoreObjectUtilities.inherit(TicketController, PrivatespaceModuleBaseController);
