@@ -4,5 +4,6 @@ module.exports = function(router){
     // router.get(routeUrl, require('./list'));
     // router.get(routeUrl +'/:id', require('./view'));
     router.post(routeUrl +"/surplus", require('./surplus'));
+    router.post(routeUrl +"/:id/claim", require('./claim'));
     // router.post(routeUrl +'/:id/pledge', require('./pledge'));
 };
