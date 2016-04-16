@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var routes = require('./routes/index');
+// var routes = require('./routes/index');
 
 var app = express();
 
@@ -31,7 +31,10 @@ initData.rebuildDB().then(function(){
 var accelecore = require("accelecore");
 app.use(accelecore.Express.ejs.layout);
 
-app.use('/', routes);
+// Routes
+// var routes = require('./routes/index');
+// app.use('/', routes);
+require('./routes/index')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

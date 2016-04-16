@@ -2,8 +2,16 @@ var express = require('express');
 var ChikkaService = require('../services/ChikkaApiService.js');
 var router = express.Router();
 
+module.exports = function(app){
+    app.use('/', require('./default'));
+    app.use('/api', require('./api'));
+    app.use('/privatespace', require('./privatespace'));
+    app.use('/', router);
+};
+
+
 /* GET home page. */
-router.get('/privatespace', function(req, res, next) {
+/*router.get('/privatespace', function(req, res, next) {
   res.renderLayout('privatespace/index', { title: 'Express' }, 'privatespace/index');
 });
 
@@ -15,22 +23,4 @@ router.get('/login', function(req, res, next) {
   res.renderLayout('public/login', { title: 'Express' }, '');
 });
 
-
-/* Chikka API Message Receiver */
-router.post('/chikka/receive', function(req, res, next) {
- res.send('POST request to the homepage');
-});
-
-router.get('/chikka/test', function(req, res, next) {
-
-	var chikkaService = new ChikkaService();
-
-	chikkaService.send('639173859454', "Testing api", function(error, result){
-		if (error) return res.send(400, error);
-        
-        res.send('POST request to the homepage');
-	});
-});
-
-
-module.exports = router;
+module.exports = router;*/
