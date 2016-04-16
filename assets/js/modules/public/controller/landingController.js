@@ -25,8 +25,20 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
           zoom: 17
       };
 
-      vm.markers.mainMarker.lat = data.coords.latitude;
-      vm.markers.mainMarker.lng = data.coords.longitude;
+      vm.markers.m1.lat = data.coords.latitude;
+      vm.markers.m1.lng = data.coords.longitude;
+
+      vm.markers.m2.lat = data.coords.latitude + 0.005;
+      vm.markers.m2.lng = data.coords.longitude + 0.005;
+    //   vm.markers.m2.icon = {
+    //     iconUrl: 'images/medicine.png',
+    //     // shadowUrl: 'img/leaf-shadow.png',
+    //     iconSize:     [38, 50], // size of the icon
+    //     shadowSize:   [50, 64], // size of the shadow
+    //     iconAnchor:   [22, 80], // point of the icon which will correspond to marker's location
+    //     shadowAnchor: [4, 62],  // the same for the shadow
+    //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    // }
 
     },
     function() {
@@ -54,7 +66,16 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
     message: 'test',
     draggable: true,
     lat: 59.91529985112055,
-    lng: 10.749062717187485    
+    lng: 10.749062717187485,
+    icon: {
+        iconUrl: 'images/hospital.png',
+        // shadowUrl: 'img/leaf-shadow.png',
+        iconSize:     [38, 50], // size of the icon
+        shadowSize:   [50, 64], // size of the shadow
+        iconAnchor:   [22, 80], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    }
   }
 
  angular.extend(this, {
@@ -64,7 +85,8 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
           zoom: 8
       },
       markers: {
-          mainMarker: angular.copy(mainMarker)
+          m1: angular.copy(mainMarker),
+          m2: angular.copy(mainMarker)
       },
       position: {
           lat: 51,

@@ -28,6 +28,10 @@ function TicketController($routeParams, SimpleRestClientService, $location) {
   }
 
   vm.reply = function(toClose) {
+  	if (!vm.ticketReplyContent) {
+  		alert('Reply is required.');
+  	}
+
   	var ticketModel = SimpleRestClientService('tickets/'+ vm.ticketId +'/sub-tickets');
 
   	var data = {
