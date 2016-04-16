@@ -8,7 +8,6 @@ module.exports = function(app){
     app.use('/', router);
 };
 
-
 /* GET home page. */
 /*router.get('/privatespace', function(req, res, next) {
   res.renderLayout('privatespace/index', { title: 'Express' }, 'privatespace/index');
@@ -22,4 +21,4 @@ router.get('/login', function(req, res, next) {
   res.renderLayout('public/login', { title: 'Express' }, '');
 });
 */
-module.exports = router;
+//module.exports = router;
