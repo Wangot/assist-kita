@@ -5,8 +5,24 @@ module.exports = function(req, res) {
     models.HealthCenter.findOne({ 
         where: {id: req.params.id},
         include: [
-            models.AssistanceRequest,
-            models.Inventory
+            {
+                attributes: { exclude: ['created_at', 'updated_at'] },
+                model: models.Inventory,
+                include: [
+                    {
+                        attributes: { exclude: ['created_at', 'updated_at'] },
+                        model: models.GenericName,
+                    },
+                    {
+                        attributes: { exclude: ['created_at', 'updated_at'] },
+                        model: models.MedicineForm,
+                    }
+                ]
+            },
+            {
+                model: models.AssistanceRequest,
+                attributes: { exclude: ['created_at', 'updated_at'] }
+            }
         ]
     }).then(function(resultObj){
         if(resultObj){
