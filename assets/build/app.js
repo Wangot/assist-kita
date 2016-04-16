@@ -510,7 +510,7 @@ var angular = require('angular');
 var PrivatespaceModuleBaseController = require('../base/PrivatespaceModuleBaseController');
 var CoreObjectUtilities = require('../../core/utilities/CoreObjectUtilities');
 
-function UserFormController($routeParams, SimpleRestClientService) {
+function UserFormController($routeParams, SimpleRestClientService, $location) {
   PrivatespaceModuleBaseController.call(this);
   var vm = this;
 
@@ -535,13 +535,13 @@ function UserFormController($routeParams, SimpleRestClientService) {
   		UserModel = SimpleRestClientService('users');
   	}
 
-  	console.log(UserModel);
 
-  	vm.User.username = vm.User.Profile.first_name;
+  	vm.User.username = vm.User.Profile.first_name + '_' + vm.User.Profile.last_name;
 
   	UserModel.save(vm.User)
   	.then(function(res) {
   		vm.User = res.User;
+  		$location.path('/user');
   	});
   }
 
