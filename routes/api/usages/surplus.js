@@ -12,7 +12,7 @@ module.exports = function(req, res) {
     };*/
 
     return models.sequelize.transaction(function (t) { 
-        return models.Usage(params, {transaction: t})
+        return models.Usage.create(params, {transaction: t})
     }).then(function(usage){
         res.renderJsonSuccess({ Usage: usage });
     }).catch(function(err){ console.log(err)
