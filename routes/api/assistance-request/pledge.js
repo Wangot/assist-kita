@@ -14,7 +14,7 @@ module.exports = function(req, res) {
         return models.AssistanceRequest.findOne({
             where: {
                 id: req.params.id,
-                inventory_id
+                inventory_id: req.body.inventory_id,
             }
         }).then(function(assistanceRequest){
             var inv = {
