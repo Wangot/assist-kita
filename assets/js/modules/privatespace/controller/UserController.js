@@ -16,7 +16,13 @@ function UserController($routeParams, SimpleRestClientService) {
   function _init(filter) {
   	var UserModel = SimpleRestClientService('users');
 
-  	UserModel.get({type: filter})
+    var params = {};
+    
+    if (filter == 'PATIENT') {
+      params = {type: filter}
+    }
+
+  	UserModel.get(params)
   	.then(function(res) {
   		vm.Users = res.Users;
   	});
