@@ -1,11 +1,7 @@
 'use strict';
 
 var angular = require('angular');
-var privatespaceModule = angular.module('app.privatespace', []);
-
-// load routes
-require('./config/routes.js');
-
+var privatespaceModule = angular.module('app.public', []);
 
 require('./service')
 // privatespaceModule.factory('WebsiteService', require('./service/WebsiteService.js'));

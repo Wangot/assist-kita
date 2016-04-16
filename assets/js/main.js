@@ -31,11 +31,9 @@ var app = angular.module('app.core',
         angularSanitize,
         'uiGmapgoogle-maps',
         'geolocation',
-        'app.user',
+        'app.public',
         'app.privatespace',
-        'app.template',
         'ngResource',
-        'ngFileUpload',
         'ui.select',
         'angular-loading-bar',
         'ui-notification',
@@ -44,3 +42,4 @@ var app = angular.module('app.core',
 
 require('./modules/core');
 require('./modules/privatespace/');
+require('./modules/public/');

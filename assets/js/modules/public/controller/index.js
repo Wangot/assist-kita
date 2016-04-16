@@ -1,6 +1,8 @@
 'use strict';
 
 var angular = require('angular');
-var privatespaceModule = angular.module('app.privatespace');
+var publicModule = angular.module('app.public');
 
-privatespaceModule.controller('TestController', require('./TestController'));
+publicModule.controller('TestController', require('./TestController'));
+
+publicModule.controller('landingController', require('./landingController'));
