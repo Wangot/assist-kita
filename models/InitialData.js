@@ -7,7 +7,6 @@ function createRoles(){
         {name: 'SUPER_ADMIN', description: 'Super admin users'},
         {name: 'ADMIN', description: 'Admin users'},
         {name: 'GUEST', description: 'Guest users'},
-        {name: 'AGENT', description: 'Agent users'},
         {name: 'CUSTOMER', description: 'Customer users'},
         {name: 'SPECIAL_ACCESS', description: 'Special access users'}
     ])
@@ -28,7 +27,7 @@ function addUser(userJson, roles){
 };
 
 function createAdmins(){
-    return models.Role.findAll({where: {name: ['SUPER_ADMIN', 'AGENT']}}).then(function(roles){
+    return models.Role.findAll({where: {name: ['SUPER_ADMIN', 'CUSTOMER']}}).then(function(roles){
         var adminRole = roles[0];
         var agentRole = roles[1];
         Q.all(
