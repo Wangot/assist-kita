@@ -1,11 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
-  // res.render('index', { title: 'Express' });
+  res.renderLayout('index', { title: 'Express' }, 'main');
+});
 
-  	res.renderLayout('home', { title: 'Express' });
+/* GET home page. */
+router.get('/privatespace', function(req, res, next) {
+  res.renderLayout('index', { title: 'Express' }, 'privatespace/index');
 });
 
 module.exports = router;
