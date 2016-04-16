@@ -42,7 +42,7 @@
           </label>
           <div class="col-md-6 col-sm-6 col-xs-12">
             <div ng-repeat="inv in vm.HealthCenter.Inventories">
-              - {{inv.GenericName.name (inv.MedicineForm.name)}} <span class="label" ng-class="{'label-success': inv.stock > 171, 'label-danger': inv.stock <= 171 }">{{inv.stock}}</span>
+              - {{inv.GenericName.name}} ({{inv.MedicineForm.name}}) <span class="label" ng-class="{'label-success': inv.stock > 171, 'label-danger': inv.stock <= 171 }">{{inv.stock}}</span>
               <a href="" ng-click="vm.openSendRequestModal(inv.generic_name_id, inv.medicine_form_id);"><i class="fa fa-plus-square"></i></a>
             </div>
           </div>

@@ -21,7 +21,7 @@ function RequestAssistanceController($routeParams, $uibModalInstance, $http, Hea
   vm.sendRequest = function() {
 
   	$http.post('api/assistance-request/add', vm.Info)
-  	.then(function() {
+  	.then(function(res) {
       $uibModalInstance.close(res);
   	});
 

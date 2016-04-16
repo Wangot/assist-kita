@@ -592,7 +592,13 @@ function UserController($routeParams, SimpleRestClientService) {
   function _init(filter) {
   	var UserModel = SimpleRestClientService('users');
 
-  	UserModel.get({type: filter})
+    var params = {};
+    
+    if (filter == 'PATIENT') {
+      params = {type: filter}
+    }
+
+  	UserModel.get(params)
   	.then(function(res) {
   		vm.Users = res.Users;
   	});
@@ -759,7 +765,7 @@ function RequestAssistanceController($routeParams, $uibModalInstance, $http, Hea
   vm.sendRequest = function() {
 
   	$http.post('api/assistance-request/add', vm.Info)
-  	.then(function() {
+  	.then(function(res) {
       $uibModalInstance.close(res);
   	});
 
@@ -901,47 +907,47 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
 
   var vm = this;
 
-    geolocation.getLocation()
-    .then(function(data){
-      var coords = {
-        lat: data.coords.latitude,
-        lng: data.coords.longitude
-      };
+    // geolocation.getLocation()
+    // .then(function(data){
+    //   var coords = {
+    //     lat: data.coords.latitude,
+    //     lng: data.coords.longitude
+    //   };
 
-      console.log(data.coords.latitude);
-      console.log(data.coords.longitude);
+    //   console.log(data.coords.latitude);
+    //   console.log(data.coords.longitude);
 
-      vm.center = {
-          lat: data.coords.latitude,
-          lng: data.coords.longitude,
-          zoom: 17
-      };
+    //   vm.center = {
+    //       lat: data.coords.latitude,
+    //       lng: data.coords.longitude,
+    //       zoom: 17
+    //   };
 
-      vm.markers.m1.lat = data.coords.latitude;
-      vm.markers.m1.lng = data.coords.longitude;
+    //   vm.markers.m1.lat = data.coords.latitude;
+    //   vm.markers.m1.lng = data.coords.longitude;
 
-      vm.markers.m2.lat = data.coords.latitude + 0.005;
-      vm.markers.m2.lng = data.coords.longitude + 0.005;
-      vm.markers.m2.icon = {
-        iconUrl: 'images/medicine.png',
-        // shadowUrl: 'img/leaf-shadow.png',
-        iconSize:     [38, 50], // size of the icon
-        shadowSize:   [50, 64], // size of the shadow
-        iconAnchor:   [22, 80], // point of the icon which will correspond to marker's location
-        shadowAnchor: [4, 62],  // the same for the shadow
-        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-    }
-    vm.markers.message = 'test1';
+    //   vm.markers.m2.lat = data.coords.latitude + 0.005;
+    //   vm.markers.m2.lng = data.coords.longitude + 0.005;
+    //   vm.markers.m2.icon = {
+    //     iconUrl: 'images/medicine.png',
+    //     // shadowUrl: 'img/leaf-shadow.png',
+    //     iconSize:     [38, 50], // size of the icon
+    //     shadowSize:   [50, 64], // size of the shadow
+    //     iconAnchor:   [22, 80], // point of the icon which will correspond to marker's location
+    //     shadowAnchor: [4, 62],  // the same for the shadow
+    //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    // }
+    // vm.markers.message = 'test1';
 
-    },
-    function() {
-      var coords = {
-        lat: 59.91529985112055,
-        lng: 10.749062717187485
-      };
+    // },
+    // function() {
+    //   var coords = {
+    //     lat: 59.91529985112055,
+    //     lng: 10.749062717187485
+    //   };
 
-      _initMarker(coords);
-    }); 
+    //   _initMarker(coords);
+    // }); 
 
 
 	function _initMarker(mainMarker) {
@@ -954,7 +960,7 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
 
   }
 
-  var mainMarker = {
+  var m1 = {
     focus: true,
     message: 'test',
     draggable: true,
@@ -971,15 +977,32 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
     }
   }
 
+  var m2 = {
+    focus: true,
+    message: 'test',
+    draggable: true,
+    lat: 59.91529985112060,
+    lng: 10.749062717187480,
+    icon: {
+        iconUrl: 'images/medicine.png',
+        // shadowUrl: 'img/leaf-shadow.png',
+        iconSize:     [38, 50], // size of the icon
+        shadowSize:   [50, 64], // size of the shadow
+        iconAnchor:   [22, 80], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    }
+  }  
+
  angular.extend(this, {
       center: {
-          lat: mainMarker.lat,
-          lng: mainMarker.lng,
+          lat: m1.lat,
+          lng: m1.lng,
           zoom: 8
       },
       markers: {
-          m1: angular.copy(mainMarker),
-          m2: angular.copy(mainMarker)
+          m1: m1,
+          m2: m2
       },
       position: {
           lat: 51,
