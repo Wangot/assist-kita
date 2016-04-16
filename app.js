@@ -22,10 +22,9 @@ app.use(express.static(path.join(__dirname, 'assets')));
 
 // NOTE: Make sure that this is always commented
 var initData = require(path.resolve("./models/InitialData"));
-initData.rebuildDB().then(function(){
-    // initData.init();
-})
-
+/*initData.rebuildDB().then(function(){
+    //initData.init();
+})*/
 
 // Initialize custom layout and router
 var accelecore = require("accelecore");
