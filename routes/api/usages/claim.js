@@ -5,7 +5,7 @@ var mUser = require(path.resolve("./models/User"));
 module.exports = function(req, res) {
     var params = req.body;
     params = {
-        health_center_id: 1 // Id claiming the surplus
+        health_center_id: req.params.destinationid // Id claiming the surplus
 
     };
 
