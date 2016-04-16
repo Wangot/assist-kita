@@ -19,6 +19,9 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
         lng: data.coords.longitude
       };
 
+      console.log(data.coords.latitude);
+      console.log(data.coords.longitude);
+
       vm.center = {
           lat: data.coords.latitude,
           lng: data.coords.longitude,
@@ -39,6 +42,7 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
         shadowAnchor: [4, 62],  // the same for the shadow
         popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     }
+    vm.markers.message = 'test1';
 
     },
     function() {

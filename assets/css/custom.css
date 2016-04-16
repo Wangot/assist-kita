@@ -1959,7 +1959,7 @@ span.section {
   width: 100%;
 }
 .form-horizontal .control-label {
-  padding-top: 8px
+  padding-top: 0px
 }
 .form-control:focus {
   border-color: #CCD0D7;
