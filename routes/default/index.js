@@ -21,25 +21,7 @@ router.get('/login', function(req, res, next) {
 /* Chikka API Message Receiver */
 
 //curl --data "message_type=INCOMING&mobile_number=639173859454&shortcode=29290170414&timestamp=343453&request_id=77575&message=akoaymaysakit" http://localhost:3000/chikka/receive
-router.post('/chikka/receive', function(req, res, next) {
-
-	if(req.body.message_type && req.body.message_type.toUpperCase() != "INCOMING"){
-		return  res.status(400).send('Not an Incoming message');
-	}
-  	
-	var messageData = {
-		message : req.body.message,
-		mobile_number: req.body.mobile_number,
-		shortcode : req.body.shortcode,
-		timestamp : req.body.timestamp,
-		request_id :req.body.request_id
-	};
-
-	console.log(messageData);
-  	//Process received data
-  	//Create ticket
- 	res.status(200).send('POST request to the homepage');
-});
+router.post('/chikka/receive', require("./chikka/receive"));
 
 //For testing purposes only
 router.get('/chikka/test', function(req, res, next) {

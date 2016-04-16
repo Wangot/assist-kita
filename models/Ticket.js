@@ -21,11 +21,13 @@ Ticket.createChikkaSms = function(user, chikkaSms){
         }
     }).then(function(ticket){
         var params = {
-
+            content: chikkaSms.message,
+            maker_id: user.id,
+            sms_id: chikkaSms.id
         };
 
         return Ticket.add(params, ticket);
-    })
+    });
 }
 
 module.exports = Ticket;
