@@ -481,17 +481,22 @@ function UserController($routeParams, SimpleRestClientService) {
   vm.Users = [];
 
 
-  function _init() {
+  function _init(filter) {
   	var UserModel = SimpleRestClientService('users');
 
-  	UserModel.get()
+  	UserModel.get({type: filter})
   	.then(function(res) {
   		vm.Users = res.Users;
   	});
 
   }
 
-  _init();
+  vm.filter = function(type) {
+  	console.log('filter');
+  	_init(type);
+  }
+
+  _init('ALL');
 
 }
 
