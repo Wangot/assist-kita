@@ -42,7 +42,7 @@ function ChikkaApiService() {
         deferred.resolve(options.form);
 		
 		// Start the request
-		request(options, function (error, response, body) {
+/*		request(options, function (error, response, body) {
     		if (!error && response.statusCode == 200) {
     		// Print out the response body
     			console.log(body)
@@ -50,7 +50,7 @@ function ChikkaApiService() {
 
                 deferred.resolve(options.form);
     		}
-		});
+		});*/
 
         return deferred.promise;
 	}

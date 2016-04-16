@@ -36,13 +36,18 @@ module.exports = function(req, res) {
             paramsObj.parent_id = ticket.id;
             var chikkaService = new sChikkaSms();
             return chikkaService.send(paramsObj.content, ticket.Maker.username).then(function(messageData){  
+                console.log('test1');
+                console.log(models.Ticket);
                 return models.Ticket.create(
                     paramsObj, 
                     {transaction: t}
                 ).then(function(subTicket){
+                    console.log('test2');
                     if(req.body.status && req.body.content == "CLOSED"){
+                        console.log('test3');
                         return ticket.updateAttributes({status: "CLOSED"}, {transaction: t})
                     }else{
+                        console.log('test4');
                         return ticket
                     }
                 });
