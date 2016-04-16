@@ -18,17 +18,16 @@ router.get('/login', function(req, res, next) {
 
 /* Chikka API Message Receiver */
 router.post('/chikka/receive', function(req, res, next) {
- res.send('POST request to the homepage');
+  res.status(200).send('POST request to the homepage')
 });
 
 router.get('/chikka/test', function(req, res, next) {
 
 	var chikkaService = new ChikkaService();
 
-	chikkaService.send('639173859454', "Testing api", function(error, result){
+	chikkaService.send('639173859454', "Testing API", function(error, result){
 		if (error) return res.send(400, error);
-        
-        res.send('POST request to the homepage');
+        res.status(200).send('POST request to the homepage')
 	});
 });
 

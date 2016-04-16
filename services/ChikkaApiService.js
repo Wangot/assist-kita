@@ -18,9 +18,9 @@ function ChikkaApiService() {
 		}
 
 		//message_type=SEND&mobile_number=639181234567&shortcode=29290123456&message_id=ccc81279fcc048d1a6fcc52ed4c13255&message=Welcome+to+Chikka%21&client_id=abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz00&secret_key=001122334455aabbccddeeffgghh66778899iijjkkllmmnnooppqqrrssttuuvv
-
+		//curl --data "message_type=SEND&mobile_number=639173859454&shortcode=29290170414&message_id=ccc81279fcc048d1a6fcc52ed4c13255&message=Welcome+to+Chikka%21&client_id=c6d706ab5729596f18ed600962cd06004288c03f3c46874a7523528d39477311&secret_key=60dc5cdd9621c51942f8637da7d41b4bf331779b114047f95df7f052f67fd9da" https://post.chikka.com/smsapi/request
 		var postData  = 'message_type=SEND'+
-						'&mobile_number=' + mobileNumber
+						'&mobile_number=' + mobileNumber + 
 						'&shortcode='+SHORT_CODE + 
 						'&message_id=12345678901234567890123456789012'+
 						'&message='+ message + 
@@ -37,8 +37,8 @@ function ChikkaApiService() {
 		});*/
 
 		var options = {
-			hostname: CHIKKA_API_URL,
-			port: 80,
+			host: CHIKKA_API_URL,
+			port: '80',
 			path: API_SEND_REQUEST_URL,
 			method: 'POST',
 			headers: {
@@ -56,6 +56,7 @@ function ChikkaApiService() {
 				//callback(null, chunk);
 			});
 			res.on('end', function () {
+				console.log('success ');
 				callback(null, "success");
 			});
 		});
@@ -64,7 +65,7 @@ function ChikkaApiService() {
 				console.log(`problem with request: ${error}`);
 				callback(error);
 		});
-
+		console.log(postData);
 		// write data to request body
 		req.write(postData);
 		req.end();
