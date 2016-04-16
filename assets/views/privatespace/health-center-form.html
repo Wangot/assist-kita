@@ -24,33 +24,58 @@
       <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
 
         <div class="form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Location
+          <label class="control-label col-md-2 col-sm-3 col-xs-12" style="text-align:left" for="first-name">Location
           </label>
-          <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="col-md-6 col-sm-6 col-xs-12 text-left" style="text-align:left">
             {{vm.HealthCenter.province_name}}
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Health Facility Type
+          <label class="control-label col-md-2 col-sm-3 col-xs-12" for="first-name" style="text-align:left">Health Facility Type
           </label>
-          <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="col-md-6 col-sm-6 col-xs-12" style="text-align:left">
             {{vm.HealthCenter.health_facility_type}}
           </div>
         </div>        
         <div class="form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Inventory
+          <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name" style="text-align:left">Inventory
           </label>
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <div ng-repeat="inv in vm.HealthCenter.Inventories">
-              - {{inv.GenericName.name (inv.MedicineForm.name)}} <span class="label" ng-class="{'label-success': inv.stock > 171, 'label-danger': inv.stock <= 171 }">{{inv.stock}}</span>
-            </div>
+          <div class="col-md-12 col-sm-6 col-xs-12" style="text-align:left">
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Generic name</th>
+                    <th>Medicine form</th>
+                    <th>Stock</th>
+                    <th>Expiry date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="inv in vm.HealthCenter.Inventories">
+                    <th scope="row">{{inv.GenericName.name}}</th>
+                    <td>{{inv.MedicineForm.name}}</td>
+                    <td>
+                      <span class="label" ng-class="{'label-success': inv.stock > 171, 'label-danger': inv.stock <= 171 }">
+                        {{inv.stock}}</span>
+                        <a href="" ng-click="vm.openSendRequestModal(inv.generic_name_id, inv.medicine_form_id);"><i class="fa fa-plus-square"></i></a>
+                    </td>
+                    <td ng-if="vm.checkExpiryDate(inv.date_expire)"> <a href="" ng-click="vm.openSurplusModal()" ng-class="{'color-red': vm.checkExpiryDate(inv.date_expire) == 'red', 'color-orange': vm.checkExpiryDate(inv.date_expire) == 'orange'}">{{inv.date_expire | date:'fullDate'}}</a>
+                    </td>
+                    <td ng-if="!vm.checkExpiryDate(inv.date_expire)">{{inv.date_expire | date:'fullDate'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+<!--             <div ng-repeat="inv in vm.HealthCenter.Inventories">
+              - {{inv.GenericName.name}} ({{inv.MedicineForm.name}}) <span class="label" ng-class="{'label-success': inv.stock > 171, 'label-danger': inv.stock <= 171 }">{{inv.stock}}</span>
+              <a href="" ng-click="vm.openSendRequestModal(inv.generic_name_id, inv.medicine_form_id);"><i class="fa fa-plus-square"></i></a>
+            </div> -->
           </div>
         </div>
         <div class="ln_solid"></div>
         <div class="form-group">
           <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
             <a class="btn btn-danger" href="#/health-center">Cancel</a>
-            <button class="btn btn-primary" ng-click="vm.sendRequest();">Assistance Request</button>
           </div>
         </div>
 

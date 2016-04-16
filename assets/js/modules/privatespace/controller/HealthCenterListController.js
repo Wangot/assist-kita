@@ -18,7 +18,6 @@ function HealthCenterListController($routeParams, $uibModal, SimpleRestClientSer
 
   	HealthCenterModel.get()
   	.then(function(res) {
-      console.log(res);
   		vm.HealthCenters = res.HealthCenters;
   	});
 

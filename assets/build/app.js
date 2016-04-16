@@ -45,7 +45,7 @@ var app = angular.module('app.core',
 require('./modules/core');
 require('./modules/privatespace/');
 require('./modules/public/');
-},{"./modules/core":5,"./modules/privatespace/":23,"./modules/public/":31,"angular":"angular","angular-google-maps":"angular-google-maps","angular-loading-bar":"angular-loading-bar","angular-local-storage":"angular-local-storage","angular-resource":"angular-resource","angular-route":"angular-route","angular-sanitize":"angular-sanitize","angular-simple-logger":"angular-simple-logger","angular-ui-bootstrap":"angular-ui-bootstrap","angular-ui-notification":"angular-ui-notification","angularjs-geolocation":"angularjs-geolocation","lodash":34,"ui-select":"ui-select"}],2:[function(require,module,exports){
+},{"./modules/core":5,"./modules/privatespace/":25,"./modules/public/":33,"angular":"angular","angular-google-maps":"angular-google-maps","angular-loading-bar":"angular-loading-bar","angular-local-storage":"angular-local-storage","angular-resource":"angular-resource","angular-route":"angular-route","angular-sanitize":"angular-sanitize","angular-simple-logger":"angular-simple-logger","angular-ui-bootstrap":"angular-ui-bootstrap","angular-ui-notification":"angular-ui-notification","angularjs-geolocation":"angularjs-geolocation","lodash":36,"ui-select":"ui-select"}],2:[function(require,module,exports){
 /**
  *
  */
@@ -391,6 +391,77 @@ function HealthCenterFormController($routeParams, $uibModal, SimpleRestClientSer
   	});
   }
 
+  vm.openSendRequestModal = function(generic_name_id, medicine_form_id) {
+    var data = {
+      id: vm.HealthCenter.id,
+      generic_name_id: generic_name_id,
+      medicine_form_id: medicine_form_id
+    }
+
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: '/views/privatespace/modals/requestAssistance.ejs',
+      controller: 'RequestAssistanceController',
+      controllerAs: 'vm',
+      resolve: {
+        HealthCenter: function() {
+          return data;
+        }
+      }
+    });
+
+    modalInstance.result
+    .then(function () {
+
+    }, function () {
+
+    });    
+  }
+
+  vm.checkExpiryDate = function(date) {
+    var ret = false;
+
+    var today = moment();
+    var exp = moment(date);
+
+    if (exp.diff(today, 'month') <= 6) {
+      ret = 'orange';
+    }
+
+    if (exp.diff(today, 'month') >= 6 && exp.diff(today, 'month') <= 12) {
+      ret = 'red';
+    }    
+
+    return ret;
+  }
+
+  vm.openSurplusModal = function(inventoryId) {
+    var Info = {
+      inventory_id: inventoryId,
+      type: 'SURPLUS'
+    }
+
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: '/views/privatespace/modals/requestAssistance.ejs',
+      controller: 'SurplusController',
+      controllerAs: 'vm',
+      resolve: {
+        Info: function() {
+          return Info;
+        }
+      }
+    });
+
+    modalInstance.result
+    .then(function () {
+
+    }, function () {
+
+    }); 
+  }
+
+
   _init();
 
 }
@@ -421,7 +492,6 @@ function HealthCenterListController($routeParams, $uibModal, SimpleRestClientSer
 
   	HealthCenterModel.get()
   	.then(function(res) {
-      console.log(res);
   		vm.HealthCenters = res.HealthCenters;
   	});
 
@@ -565,7 +635,13 @@ function UserController($routeParams, SimpleRestClientService) {
   function _init(filter) {
   	var UserModel = SimpleRestClientService('users');
 
-  	UserModel.get({type: filter})
+    var params = {};
+    
+    if (filter == 'PATIENT') {
+      params = {type: filter}
+    }
+
+  	UserModel.get(params)
   	.then(function(res) {
   		vm.Users = res.Users;
   	});
@@ -657,7 +733,9 @@ privatespaceModule.controller('LandingSearchController', require('./modals/Landi
 
 privatespaceModule.controller('HealthCenterListController', require('./HealthCenterListController'));
 privatespaceModule.controller('HealthCenterFormController', require('./HealthCenterFormController'));
-},{"./HealthCenterFormController":14,"./HealthCenterListController":15,"./TicketController":16,"./TicketFormController":17,"./UserController":18,"./UserFormController":19,"./modals/HospitalInfoController":21,"./modals/LandingSearchController":22,"angular":"angular"}],21:[function(require,module,exports){
+privatespaceModule.controller('RequestAssistanceController', require('./modals/RequestAssistanceController'));
+privatespaceModule.controller('SurplusController', require('./modals/SurplusController'));
+},{"./HealthCenterFormController":14,"./HealthCenterListController":15,"./TicketController":16,"./TicketFormController":17,"./UserController":18,"./UserFormController":19,"./modals/HospitalInfoController":21,"./modals/LandingSearchController":22,"./modals/RequestAssistanceController":23,"./modals/SurplusController":24,"angular":"angular"}],21:[function(require,module,exports){
 /**
  *
  */
@@ -708,6 +786,81 @@ angular.extend(LandingSearchController.prototype, {});
 
 module.exports = LandingSearchController;
 },{"../../../core/utilities/CoreObjectUtilities":10,"../../base/PrivatespaceModuleBaseController":11,"angular":"angular"}],23:[function(require,module,exports){
+/**
+ *
+ */
+ 'use strict';
+
+var angular = require('angular');
+var PrivatespaceModuleBaseController = require('../../base/PrivatespaceModuleBaseController');
+var CoreObjectUtilities = require('../../../core/utilities/CoreObjectUtilities');
+
+function RequestAssistanceController($routeParams, $uibModalInstance, $http, HealthCenter) {
+  PrivatespaceModuleBaseController.call(this);
+  var vm = this;
+
+  vm.Info = HealthCenter;
+  vm.title = 'Request Assistance';
+
+  vm.close = function () {
+	$uibModalInstance.dismiss('cancel');
+  };
+
+  vm.sendRequest = function() {
+
+  	$http.post('api/assistance-request/add', vm.Info)
+  	.then(function(res) {
+      $uibModalInstance.close(res);
+  	});
+
+  	// var assistanceRequestModel = SimpleRestClientService('');
+    
+   //  assistanceRequestModel.save(vm.Info)
+   //  .then(function(res) {
+   //  });    
+  }
+}
+
+CoreObjectUtilities.inherit(RequestAssistanceController, PrivatespaceModuleBaseController);
+
+angular.extend(RequestAssistanceController.prototype, {});
+
+module.exports = RequestAssistanceController;
+},{"../../../core/utilities/CoreObjectUtilities":10,"../../base/PrivatespaceModuleBaseController":11,"angular":"angular"}],24:[function(require,module,exports){
+/**
+ *
+ */
+ 'use strict';
+
+var angular = require('angular');
+var PrivatespaceModuleBaseController = require('../../base/PrivatespaceModuleBaseController');
+var CoreObjectUtilities = require('../../../core/utilities/CoreObjectUtilities');
+
+function SurplusController($routeParams, $uibModalInstance, $http, Info) {
+  PrivatespaceModuleBaseController.call(this);
+  var vm = this;
+
+  vm.Info = Info;
+  vm.title = 'Surplus Share';
+
+  vm.close = function () {
+	$uibModalInstance.dismiss('cancel');
+  };
+
+  vm.sendRequest = function() {
+  	$http.post('api/usages/surplus', vm.Info)
+  	.then(function(res) {
+      $uibModalInstance.close(res);
+  	});
+  }
+}
+
+CoreObjectUtilities.inherit(SurplusController, PrivatespaceModuleBaseController);
+
+angular.extend(SurplusController.prototype, {});
+
+module.exports = SurplusController;
+},{"../../../core/utilities/CoreObjectUtilities":10,"../../base/PrivatespaceModuleBaseController":11,"angular":"angular"}],25:[function(require,module,exports){
 'use strict';
 
 var angular = require('angular');
@@ -721,7 +874,7 @@ require('./service')
 
 require('./controller')
 
-},{"./config/routes.js":13,"./controller":20,"./service":25,"angular":"angular"}],24:[function(require,module,exports){
+},{"./config/routes.js":13,"./controller":20,"./service":27,"angular":"angular"}],26:[function(require,module,exports){
 'use strict';
 
 var angular = require('angular');
@@ -740,14 +893,14 @@ angular.extend(TestService.prototype, {
 });
 
 module.exports = TestService;
-},{"../../core/utilities/CoreObjectUtilities":10,"../base/PrivatespaceModuleBaseService":12,"angular":"angular"}],25:[function(require,module,exports){
+},{"../../core/utilities/CoreObjectUtilities":10,"../base/PrivatespaceModuleBaseService":12,"angular":"angular"}],27:[function(require,module,exports){
 'use strict';
 
 var angular = require('angular');
 var privatespaceModule = angular.module('app.privatespace');
 
 privatespaceModule.service('TestService', require('./TestService.js'));
-},{"./TestService.js":24,"angular":"angular"}],26:[function(require,module,exports){
+},{"./TestService.js":26,"angular":"angular"}],28:[function(require,module,exports){
 /**
  *
  */
@@ -767,7 +920,7 @@ angular.extend(PublicModuleBaseController.prototype, {
 });
 
 module.exports = PublicModuleBaseController;
-},{"../../core/base/CoreModuleBaseController":2,"../../core/utilities/CoreObjectUtilities":10,"angular":"angular"}],27:[function(require,module,exports){
+},{"../../core/base/CoreModuleBaseController":2,"../../core/utilities/CoreObjectUtilities":10,"angular":"angular"}],29:[function(require,module,exports){
 /**
  *
  */
@@ -789,7 +942,7 @@ angular.extend(PublicModuleBaseService.prototype, {
 });
 
 module.exports = PublicModuleBaseService;
-},{"../../core/base/CoreModuleBaseService":3,"../../core/utilities/CoreObjectUtilities":10,"angular":"angular"}],28:[function(require,module,exports){
+},{"../../core/base/CoreModuleBaseService":3,"../../core/utilities/CoreObjectUtilities":10,"angular":"angular"}],30:[function(require,module,exports){
 /**
  *
  */
@@ -808,7 +961,7 @@ CoreObjectUtilities.inherit(PublicIndexController, PublicModuleBaseController);
 angular.extend(PublicIndexController.prototype, {});
 
 module.exports = PublicIndexController;
-},{"../../core/utilities/CoreObjectUtilities":10,"../base/PublicModuleBaseController":26,"angular":"angular"}],29:[function(require,module,exports){
+},{"../../core/utilities/CoreObjectUtilities":10,"../base/PublicModuleBaseController":28,"angular":"angular"}],31:[function(require,module,exports){
 'use strict';
 
 var angular = require('angular');
@@ -817,7 +970,7 @@ var publicModule = angular.module('app.public');
 publicModule.controller('TestController', require('./TestController'));
 
 publicModule.controller('landingController', require('./landingController'));
-},{"./TestController":28,"./landingController":30,"angular":"angular"}],30:[function(require,module,exports){
+},{"./TestController":30,"./landingController":32,"angular":"angular"}],32:[function(require,module,exports){
 /**
  *
  */
@@ -832,47 +985,47 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
 
   var vm = this;
 
-    geolocation.getLocation()
-    .then(function(data){
-      var coords = {
-        lat: data.coords.latitude,
-        lng: data.coords.longitude
-      };
+    // geolocation.getLocation()
+    // .then(function(data){
+    //   var coords = {
+    //     lat: data.coords.latitude,
+    //     lng: data.coords.longitude
+    //   };
 
-      console.log(data.coords.latitude);
-      console.log(data.coords.longitude);
+    //   console.log(data.coords.latitude);
+    //   console.log(data.coords.longitude);
 
-      vm.center = {
-          lat: data.coords.latitude,
-          lng: data.coords.longitude,
-          zoom: 17
-      };
+    //   vm.center = {
+    //       lat: data.coords.latitude,
+    //       lng: data.coords.longitude,
+    //       zoom: 17
+    //   };
 
-      vm.markers.m1.lat = data.coords.latitude;
-      vm.markers.m1.lng = data.coords.longitude;
+    //   vm.markers.m1.lat = data.coords.latitude;
+    //   vm.markers.m1.lng = data.coords.longitude;
 
-      vm.markers.m2.lat = data.coords.latitude + 0.005;
-      vm.markers.m2.lng = data.coords.longitude + 0.005;
-      vm.markers.m2.icon = {
-        iconUrl: 'images/medicine.png',
-        // shadowUrl: 'img/leaf-shadow.png',
-        iconSize:     [38, 50], // size of the icon
-        shadowSize:   [50, 64], // size of the shadow
-        iconAnchor:   [22, 80], // point of the icon which will correspond to marker's location
-        shadowAnchor: [4, 62],  // the same for the shadow
-        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-    }
-    vm.markers.message = 'test1';
+    //   vm.markers.m2.lat = data.coords.latitude + 0.005;
+    //   vm.markers.m2.lng = data.coords.longitude + 0.005;
+    //   vm.markers.m2.icon = {
+    //     iconUrl: 'images/medicine.png',
+    //     // shadowUrl: 'img/leaf-shadow.png',
+    //     iconSize:     [38, 50], // size of the icon
+    //     shadowSize:   [50, 64], // size of the shadow
+    //     iconAnchor:   [22, 80], // point of the icon which will correspond to marker's location
+    //     shadowAnchor: [4, 62],  // the same for the shadow
+    //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    // }
+    // vm.markers.message = 'test1';
 
-    },
-    function() {
-      var coords = {
-        lat: 59.91529985112055,
-        lng: 10.749062717187485
-      };
+    // },
+    // function() {
+    //   var coords = {
+    //     lat: 59.91529985112055,
+    //     lng: 10.749062717187485
+    //   };
 
-      _initMarker(coords);
-    }); 
+    //   _initMarker(coords);
+    // }); 
 
 
 	function _initMarker(mainMarker) {
@@ -885,7 +1038,7 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
 
   }
 
-  var mainMarker = {
+  var m1 = {
     focus: true,
     message: 'test',
     draggable: true,
@@ -902,15 +1055,32 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
     }
   }
 
+  var m2 = {
+    focus: true,
+    message: 'test',
+    draggable: true,
+    lat: 59.91529985112060,
+    lng: 10.749062717187480,
+    icon: {
+        iconUrl: 'images/medicine.png',
+        // shadowUrl: 'img/leaf-shadow.png',
+        iconSize:     [38, 50], // size of the icon
+        shadowSize:   [50, 64], // size of the shadow
+        iconAnchor:   [22, 80], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    }
+  }  
+
  angular.extend(this, {
       center: {
-          lat: mainMarker.lat,
-          lng: mainMarker.lng,
+          lat: m1.lat,
+          lng: m1.lng,
           zoom: 8
       },
       markers: {
-          m1: angular.copy(mainMarker),
-          m2: angular.copy(mainMarker)
+          m1: m1,
+          m2: m2
       },
       position: {
           lat: 51,
@@ -988,7 +1158,7 @@ CoreObjectUtilities.inherit(landingController, PublicModuleBaseController);
 angular.extend(landingController.prototype, {});
 
 module.exports = landingController;
-},{"../../core/utilities/CoreObjectUtilities":10,"../base/PublicModuleBaseController":26,"angular":"angular"}],31:[function(require,module,exports){
+},{"../../core/utilities/CoreObjectUtilities":10,"../base/PublicModuleBaseController":28,"angular":"angular"}],33:[function(require,module,exports){
 'use strict';
 
 var angular = require('angular');
@@ -1001,7 +1171,7 @@ require('./service')
 require('./controller')
 // privatespaceModule.controller('MainController', require('./controller/mainController.js'));
 
-},{"./controller":29,"./service":33,"angular":"angular"}],32:[function(require,module,exports){
+},{"./controller":31,"./service":35,"angular":"angular"}],34:[function(require,module,exports){
 'use strict';
 
 var angular = require('angular');
@@ -1020,9 +1190,9 @@ angular.extend(TestService.prototype, {
 });
 
 module.exports = TestService;
-},{"../../core/utilities/CoreObjectUtilities":10,"../base/PublicModuleBaseService":27,"angular":"angular"}],33:[function(require,module,exports){
-arguments[4][25][0].apply(exports,arguments)
-},{"./TestService.js":32,"angular":"angular","dup":25}],34:[function(require,module,exports){
+},{"../../core/utilities/CoreObjectUtilities":10,"../base/PublicModuleBaseService":29,"angular":"angular"}],35:[function(require,module,exports){
+arguments[4][27][0].apply(exports,arguments)
+},{"./TestService.js":34,"angular":"angular","dup":27}],36:[function(require,module,exports){
 (function (global){
 /**
  * @license
