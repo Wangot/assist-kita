@@ -14,6 +14,16 @@ function ($routeProvider, $locationProvider) {
       controller: 'TicketFormController',
       controllerAs: 'vm'
   })
+  .when('/user', {
+      templateUrl: '/views/privatespace/user-list.html',
+      controller: 'UserController',
+      controllerAs: 'vm'
+  })
+  .when('/user/:id', {
+      templateUrl: '/views/privatespace/user-form.html',
+      controller: 'UserFormController',
+      controllerAs: 'vm'
+  })  
   // .otherwise({
   //     redirectTo: '/ticket'
   // });
