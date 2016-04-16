@@ -17,15 +17,24 @@ function ChikkaApiService() {
 			return callback("Invalid mobile number");
 		}
 
-		var postData = querystring.stringify({
-	  		"message_type" : "SEND",
-	        "mobile_number" : mobileNumber, //"639181234567",
-	        "shortcode" : SHORT_CODE,
-	        "message_id" : "12345678901234567890123456789012",
-	        "message" : message,
-	        "client_id" : API_CLIENT_ID,
-	        "secret_key" : API_SECRET
-		});
+		//message_type=SEND&mobile_number=639181234567&shortcode=29290123456&message_id=ccc81279fcc048d1a6fcc52ed4c13255&message=Welcome+to+Chikka%21&client_id=abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz00&secret_key=001122334455aabbccddeeffgghh66778899iijjkkllmmnnooppqqrrssttuuvv
+
+		var postData  = 'message_type=SEND'+
+						'&mobile_number=' + mobileNumber
+						'&shortcode='+SHORT_CODE + 
+						'&message_id=12345678901234567890123456789012'+
+						'&message='+ message + 
+						'&client_id='+ API_CLIENT_ID + 
+						'&secret_key='+ API_SECRET;
+	/*	var postData = {
+	  		message_type : SEND,
+	        mobile_number : mobileNumber, //"639181234567",
+	        shortcode : SHORT_CODE,
+	        message_id : "12345678901234567890123456789012",
+	        message : message,
+	        client_id : API_CLIENT_ID,
+	        secret_key : API_SECRET
+		});*/
 
 		var options = {
 			hostname: CHIKKA_API_URL,

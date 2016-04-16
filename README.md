@@ -1,2 +1,1 @@
-# Express base project
-# https://github.com/Wangot/express-base
+# ThinkOpen - Hackathon For Health

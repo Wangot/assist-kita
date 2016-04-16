@@ -7,12 +7,13 @@ var angular = require('angular');
 var PrivatespaceModuleBaseController = require('../base/PrivatespaceModuleBaseController');
 var CoreObjectUtilities = require('../../core/utilities/CoreObjectUtilities');
 
-function TestController($routeParams) {
+function TicketController($routeParams) {
   PrivatespaceModuleBaseController.call(this);
+  var vm = this;
 }
 
-CoreObjectUtilities.inherit(TestController, PrivatespaceModuleBaseController);
+CoreObjectUtilities.inherit(TicketController, PrivatespaceModuleBaseController);
 
-angular.extend(TestController.prototype, {});
+angular.extend(TicketController.prototype, {});
 
-module.exports = TestController;
+module.exports = TicketController;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="app.core">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -50,7 +50,7 @@
         <div class="left_col scroll-view">
 
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
+            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>NanoLabs</span></a>
           </div>
           <div class="clearfix"></div>
 
@@ -74,16 +74,18 @@
             <div class="menu_section">
               <h3>General</h3>
               <ul class="nav side-menu">
-                <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu" style="display: none">
+                <li><a href="#ticket"><i class="fa fa-home"></i> Tickets</a>
+<!--                   <ul class="nav child_menu" style="display: none">
                     <li><a href="index.html">Dashboard</a>
                     </li>
                     <li><a href="index2.html">Dashboard2</a>
                     </li>
                     <li><a href="index3.html">Dashboard3</a>
                     </li>
-                  </ul>
+                  </ul> -->
                 </li>
+                <!-- 
+
                 <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu" style="display: none">
                     <li><a href="form.html">General Form</a>
@@ -180,6 +182,7 @@
                 </li>
                 <li><a><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a>
                 </li>
+                 -->
               </ul>
             </div>
 
@@ -320,7 +323,7 @@
 
       <!-- page content -->
       <div class="right_col" role="main">
-        <%= content %>
+        <%- content %>
       </div>
       <!-- /page content -->
     </div>
@@ -335,34 +338,17 @@
   </div>
 
   <script src="js/libs/bootstrap.min.js"></script>
-
-  <!-- gauge js -->
-  <script type="text/javascript" src="js/libs/gauge/gauge.min.js"></script>
-  <script type="text/javascript" src="js/libs/gauge/gauge_demo.js"></script>
   <!-- bootstrap progress js -->
   <script src="js/libs/progressbar/bootstrap-progressbar.min.js"></script>
   <!-- icheck -->
   <script src="js/libs/icheck/icheck.min.js"></script>
   <!-- daterangepicker -->
   <script type="text/javascript" src="js/libs/moment/moment.min.js"></script>
-  <script type="text/javascript" src="js/libs/datepicker/daterangepicker.js"></script>
-  <!-- chart js -->
-  <script src="js/libs/chartjs/libs/chart.min.js"></script>
 
   <script src="js/libs/custom.js"></script>
 
-  <!-- flot js -->
-  <!--[if lte IE 8]><script type="text/javascript" src="js/libs/excanvas.min.js"></script><![endif]-->
-  <script type="text/javascript" src="js/libs/flot/jquery.flot.js"></script>
-  <script type="text/javascript" src="js/libs/flot/jquery.flot.pie.js"></script>
-  <script type="text/javascript" src="js/libs/flot/jquery.flot.orderBars.js"></script>
-  <script type="text/javascript" src="js/libs/flot/jquery.flot.time.min.js"></script>
-  <script type="text/javascript" src="js/libs/flot/date.js"></script>
-  <script type="text/javascript" src="js/libs/flot/jquery.flot.spline.js"></script>
-  <script type="text/javascript" src="js/libs/flot/jquery.flot.stack.js"></script>
-  <script type="text/javascript" src="js/libs/flot/curvedLines.js"></script>
-  <script type="text/javascript" src="js/libs/flot/jquery.flot.resize.js"></script>
   <script>
+  /*
     $(document).ready(function() {
       // [17, 74, 6, 39, 20, 85, 7]
       //[82, 23, 66, 9, 99, 6, 2]
@@ -437,7 +423,11 @@
         return new Date(year, month - 1, day).getTime();
       }
     });
+*/
   </script>
+
+  <script type="text/javascript" src="build/vendor.js"></script>
+  <script type="text/javascript" src="build/app.js"></script>
 
   <!-- worldmap -->
   <script type="text/javascript" src="js/libs/maps/jquery-jvectormap-2.0.3.min.js"></script>
@@ -486,7 +476,7 @@
 
   <!-- dashbord linegraph -->
   <script>
-    Chart.defaults.global.legend = {
+   /* Chart.defaults.global.legend = {
       enabled: false
     };
 
@@ -522,7 +512,7 @@
       type: 'doughnut',
       tooltipFillColor: "rgba(51, 51, 51, 0.55)",
       data: data
-    });
+    });*/
   </script>
   <!-- /dashbord linegraph -->
   <!-- datepicker -->

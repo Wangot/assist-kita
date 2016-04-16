@@ -16,7 +16,8 @@
     "mysql": "2.9.0",
     "sequelize": "3.14.2",
     "q": "1.4.1",
-    "accelecore": "0.1.1"
+    "accelecore": "0.1.1",
+    "slug": "0.9.1"
   },
   "devDependencies": {
     "lodash": "*",

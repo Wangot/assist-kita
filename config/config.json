@@ -1,11 +1,11 @@
 {
     "development": {
         "url": "http://localhost:3000/",
-        "appName": "base-project - Development",
+        "appName": "nanolabs - Development",
         "db" : {
-            "username": "base-project",
-            "password": "base-project",
-            "database": "base-project",
+            "username": "nanolabs",
+            "password": "nanolabs",
+            "database": "nanolabs",
             "host": "127.0.0.1",
             "dialect": "mysql",
             "logging": false
@@ -16,10 +16,10 @@
             "secretKey": "secretKey"
         },
         "sendgrid":{
-            "user": "base-project",
-            "key": "base-project123",
-            "defaultFromEmail": "noreply@base-project.no",
-            "defaultFromName": "base-project"
+            "user": "nanolabs",
+            "key": "nanolabs123",
+            "defaultFromEmail": "noreply@nanolabs.no",
+            "defaultFromName": "nanolabs"
         },
         "import_settings": {
             "email_report": "raymande.leano@gmail.com"
