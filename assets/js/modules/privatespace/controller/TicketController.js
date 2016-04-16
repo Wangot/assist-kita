@@ -7,9 +7,18 @@ var angular = require('angular');
 var PrivatespaceModuleBaseController = require('../base/PrivatespaceModuleBaseController');
 var CoreObjectUtilities = require('../../core/utilities/CoreObjectUtilities');
 
-function TicketController($routeParams, $uibModal) {
+function TicketController($routeParams, $uibModal, SimpleRestClientService) {
   PrivatespaceModuleBaseController.call(this);
   var vm = this;
+
+  function _init() {
+  	var ticketsModel = SimpleRestClientService('tickets');
+
+  	ticketsModel.get()
+  	.then(function(res) {
+  		vm.Tickets = res.Ticket;
+  	});
+  }
 
   vm.openHospitalModal = function() {
 	  var modalInstance = $uibModal.open({
@@ -28,6 +37,8 @@ function TicketController($routeParams, $uibModal) {
 
 	  });
   }
+
+  _init();
 
 }
 
