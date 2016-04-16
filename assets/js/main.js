@@ -38,6 +38,7 @@ var app = angular.module('app.core',
         'angular-loading-bar',
         'ui-notification',
         'LocalStorageModule',
+        'leaflet-directive'
     ]);
 
 require('./modules/core');
