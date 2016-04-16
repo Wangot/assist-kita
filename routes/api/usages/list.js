@@ -8,7 +8,11 @@ module.exports = function(req, res) {
     var type = null;
 
     var condition = {
-        where: { id: req.params.id },
+        where: {
+            id: {
+                $ne: req.params.id
+            }
+        },
         //attributes: { exclude: ['password', 'password_reset_token', 'password_reset_requested_at', 'created_at', 'updated_at'] },
         include: [
             {
