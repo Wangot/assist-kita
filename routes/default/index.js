@@ -37,7 +37,7 @@ router.get('/chikka-sos', function(req, res, next){
     req.body.mobile_number = "639166976000";
     req.body.shortcode = "29290170414"
     req.body.timestamp = new Date();
-
+    
     require("./chikka/receive")(req, res, next)
 });
 

@@ -63,7 +63,7 @@ module.exports = function(req, res, next){
             }).then(function(assistanceRequest){
                 res.renderJsonSuccess({ AssistanceRequest: assistanceRequest });
             }).catch(function(err){ console.log(err)
-                //res.renderJsonFail('Failed saving the Assistance Request', err.errors);
+                res.renderJsonFail('Failed saving the Assistance Request', err.errors);
             });
         }
 
@@ -98,7 +98,7 @@ module.exports = function(req, res, next){
                 res.renderJsonSuccess({ AssistanceRequest: assistanceRequest });
             }).catch(function (err) {
                 console.log(err)
-                //res.renderJsonFail('Failed saving the Assistance Request', err.errors);
+                res.renderJsonFail('Failed saving the Assistance Request', err.errors);
             });
         }
     }
