@@ -27,20 +27,20 @@
           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">First Name <span class="required">*</span>
           </label>
           <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" data-parsley-id="4867"><ul class="parsley-errors-list" id="parsley-id-4867"></ul>
+            <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" data-parsley-id="4867" ng-model="vm.User.Profile.first_name">
           </div>
         </div>
         <div class="form-group">
           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Last Name <span class="required">*</span>
           </label>
           <div class="col-md-6 col-sm-6 col-xs-12">
-            <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12" data-parsley-id="0728"><ul class="parsley-errors-list" id="parsley-id-0728"></ul>
+            <input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12" data-parsley-id="0728" ng-model="vm.User.Profile.last_name">
           </div>
         </div>
         <div class="form-group">
           <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Middle Name / Initial</label>
           <div class="col-md-6 col-sm-6 col-xs-12">
-            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name" data-parsley-id="3599"><ul class="parsley-errors-list" id="parsley-id-3599"></ul>
+            <input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name" data-parsley-id="3599" ng-model="vm.User.Profile.middle_name">
           </div>
         </div>
         <div class="form-group">
@@ -49,7 +49,7 @@
             <div id="gender" class="btn-group" data-toggle="buttons">
               <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                 <input type="radio" name="gender" value="male" data-parsley-multiple="gender" data-parsley-id="3006"> &nbsp; Male &nbsp;
-              </label><ul class="parsley-errors-list" id="parsley-id-multiple-gender"></ul>
+              </label>
               <label class="btn btn-primary active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
                 <input type="radio" name="gender" value="female" checked="" data-parsley-multiple="gender" data-parsley-id="3006"> Female
               </label>
@@ -66,8 +66,8 @@
         <div class="ln_solid"></div>
         <div class="form-group">
           <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-            <button type="submit" class="btn btn-primary">Cancel</button>
-            <button type="submit" class="btn btn-success">Submit</button>
+            <a  class="btn btn-primary" href="#/user">Cancel</a>
+            <button type="submit" class="btn btn-success" ng-click="vm.save();">Submit</button>
           </div>
         </div>
 

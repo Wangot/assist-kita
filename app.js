@@ -21,10 +21,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'assets')));
 
 // NOTE: Make sure that this is always commented
-/*var initData = require(path.resolve("./models/InitialData"));
+var initData = require(path.resolve("./models/InitialData"));
 initData.rebuildDB().then(function(){
-    initData.init();
-})*/
+    // initData.init();
+})
 
 
 // Initialize custom layout and router

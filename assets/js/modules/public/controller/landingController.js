@@ -30,15 +30,15 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
 
       vm.markers.m2.lat = data.coords.latitude + 0.005;
       vm.markers.m2.lng = data.coords.longitude + 0.005;
-    //   vm.markers.m2.icon = {
-    //     iconUrl: 'images/medicine.png',
-    //     // shadowUrl: 'img/leaf-shadow.png',
-    //     iconSize:     [38, 50], // size of the icon
-    //     shadowSize:   [50, 64], // size of the shadow
-    //     iconAnchor:   [22, 80], // point of the icon which will correspond to marker's location
-    //     shadowAnchor: [4, 62],  // the same for the shadow
-    //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-    // }
+      vm.markers.m2.icon = {
+        iconUrl: 'images/medicine.png',
+        // shadowUrl: 'img/leaf-shadow.png',
+        iconSize:     [38, 50], // size of the icon
+        shadowSize:   [50, 64], // size of the shadow
+        iconAnchor:   [22, 80], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    }
 
     },
     function() {

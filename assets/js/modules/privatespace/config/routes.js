@@ -19,6 +19,11 @@ function ($routeProvider, $locationProvider) {
       controller: 'UserController',
       controllerAs: 'vm'
   })
+  .when('/user/add', {
+      templateUrl: '/views/privatespace/user-form.html',
+      controller: 'UserFormController',
+      controllerAs: 'vm'
+  })  
   .when('/user/:id', {
       templateUrl: '/views/privatespace/user-form.html',
       controller: 'UserFormController',

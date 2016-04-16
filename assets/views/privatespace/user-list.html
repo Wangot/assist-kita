@@ -2,9 +2,8 @@
   <div class="x_title">
     <h2>Users</h2>
     <ul class="nav navbar-right panel_toolbox">
-      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-      </li>
-      <li class="dropdown">
+      <li><a class="collapse-link" href="#/user/add"><i class="fa fa-plus"></i></a></li>
+<!--       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
         <ul class="dropdown-menu" role="menu">
           <li><a href="#">Settings 1</a>
@@ -14,7 +13,7 @@
         </ul>
       </li>
       <li><a class="close-link"><i class="fa fa-close"></i></a>
-      </li>
+      </li> -->
     </ul>
     <div class="clearfix"></div>
   </div>
@@ -25,32 +24,18 @@
           <th>#</th>
           <th>First Name</th>
           <th>Last Name</th>
-          <th>Username</th>
+          <th>Address</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td><a href="#/ticket/1" class="btn btn-primary"><i class="fa fa-edit"></i></a></td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td><a href="#/ticket/1" class="btn btn-primary"><i class="fa fa-edit"></i></a></td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-          <td><a href="#/ticket/1" class="btn btn-primary"><i class="fa fa-edit"></i></a></td>
-        </tr>       
+        <tr ng-repeat="user in vm.Users">
+          <th scope="row">{{user.id}}</th>
+          <td>{{user.Profile.first_name}}</td>
+          <td>{{user.Profile.last_name}}</td>
+          <td>{{user.Profile.address}}</td>
+          <td><a href="#/user/{{user.id}}" class="btn btn-primary"><i class="fa fa-edit"></i></a></td>
+        </tr>      
       </tbody>
     </table>
 
