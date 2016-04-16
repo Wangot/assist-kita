@@ -1,3 +1,4 @@
+var Q = require("q");
 var request = require('request');
 
 function ChikkaApiService() {
@@ -8,10 +9,12 @@ function ChikkaApiService() {
 	var SHORT_CODE = '29290170414';
 
 	this.send = function(mobileNumber, message, callback){
+        var deferred = Q.defer();
 		
 		if(mobileNumber.length <= 0 ){
 			console.log("Invalid mobile number");
-			return callback("Invalid mobile number");
+			// return callback("Invalid mobile number");
+            deferred.resolve("Invalid mobile number");
 		}
 
 		// Set the headers
@@ -35,15 +38,21 @@ function ChikkaApiService() {
 		        secret_key : API_SECRET
 			}
 		}
+
+        deferred.resolve(options.form);
 		
 		// Start the request
 		request(options, function (error, response, body) {
-		if (!error && response.statusCode == 200) {
-		// Print out the response body
-			console.log(body)
-			callback(null, "success");
-		}
-		})
+    		if (!error && response.statusCode == 200) {
+    		// Print out the response body
+    			console.log(body)
+    			// callback(null, "success");
+
+                deferred.resolve(options.form);
+    		}
+		});
+
+        return deferred.promise;
 	}
 }
 

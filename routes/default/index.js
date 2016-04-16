@@ -23,6 +23,15 @@ router.get('/login', function(req, res, next) {
 //curl --data "message_type=INCOMING&mobile_number=639173859454&shortcode=29290170414&timestamp=343453&request_id=77575&message=akoaymaysakit" http://localhost:3000/chikka/receive
 router.post('/chikka/receive', require("./chikka/receive"));
 
+router.get('/chikka-test', function(req, res, next){
+    req.body.message = "Hello there";
+    req.body.mobile_number = "09166976000";
+    req.body.shortcode = "123123"
+    req.body.timestamp = new Date();
+
+    require("./chikka/receive")(req, res, next)
+});
+
 //For testing purposes only
 router.get('/chikka/test', function(req, res, next) {
 

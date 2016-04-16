@@ -6,4 +6,6 @@ module.exports = function(router){
     // router.post(routeUrl, require('./add'));
     // router.post(routeUrl +'/:id', require('./update'));
     // router.put(routeUrl +'/:id', require('./update'));
+
+    router.post(routeUrl +"/:id/sub-tickets", require('./sub-tickets/add'));
 };
