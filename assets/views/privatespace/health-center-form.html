@@ -55,8 +55,8 @@
                     <th scope="row">{{inv.GenericName.name}}</th>
                     <td>{{inv.MedicineForm.name}}</td>
                     <td>
-                      <span class="label" ng-class="{'label-success': inv.stock > 171, 'label-danger': inv.stock <= 171 }">
-                        {{inv.stock}}</span>
+                      <span class="label" ng-class="{'label-success': (inv.stock - inv.consumed) > 171, 'label-danger': (inv.stock - inv.consumed) <= 171 }">
+                        {{inv.stock - inv.consumed}}</span>
                         <a href="" ng-click="vm.openSendRequestModal(inv.generic_name_id, inv.medicine_form_id);"><i class="fa fa-plus-square"></i></a>
                     </td>
                     <td ng-if="vm.checkExpiryDate(inv.date_expire)"> <a href="" ng-click="vm.openSurplusModal(inv.id)" ng-class="{'color-red': vm.checkExpiryDate(inv.date_expire) == 'red', 'color-orange': vm.checkExpiryDate(inv.date_expire) == 'orange'}">{{inv.date_expire | date:'fullDate'}}</a>
