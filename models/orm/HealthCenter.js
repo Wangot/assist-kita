@@ -52,24 +52,15 @@ module.exports = function(sequelize, DataTypes) {
             associate: function(models) {
                 HealthCenter.hasMany(models.AssistanceRequest),
                 HealthCenter.hasMany(models.Inventory)
+            },
+            //dist as distance in kilometers
+            findByLocation: function (latitude, longitude, distance) {
+                var deferred = Q.defer();
+                return sequelize.query("SELECT id,health_facility_name,health_facility_type,latitude, longitude, ( 6371 * acos( cos( radians(" + latitude + ") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians(" + longitude +") ) + sin( radians("+ latitude +") ) * sin( radians( latitude ) ) ) ) AS distance FROM health_center HAVING distance < "+ distance +" ORDER BY distance LIMIT 0 , 1000;" );
             }
         },
         hooks: {
         },
-        instanceMethods: {
-            //dist as distance in kilometers
-            findByLocation: function (latitude, longitude, distance) {
-                var deferred = Q.defer();
-                sequelize.query("SELECT id, ( 6371 * acos( cos( radians(37) ) * cos( radians( " + latitude + " ) ) * cos( radians( "+ longitude +" ) - radians(-122) ) + sin( radians(37) ) * sin( radians( " + latitude + " ) ) ) ) AS distance FROM markers HAVING distance < "+ distance +" ORDER BY distance LIMIT 0 , 20;" )
-                    .then(function (result) {
-                        deferred.resolve(result);
-                    })
-                    .catch(function (err) {
-                        deferred.reject(err);
-                    });
-                return deferred;
-            }
-        }
     });
 
     return HealthCenter;
