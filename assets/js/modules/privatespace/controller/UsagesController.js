@@ -22,6 +22,15 @@ function UsagesController($routeParams, SimpleRestClientService) {
   	});
   }
 
+  vm.claim = function(healthCenterIdRequested) {
+    var UsagesSurplusModel = SimpleRestClientService('usages/' + healthCenterIdRequested + '/claim/' + $routeParams.healthCenterId);
+
+    UsagesSurplusModel.get()
+    .then(function(res) {
+      _init();
+    });
+  }
+
   _init();
 
 }

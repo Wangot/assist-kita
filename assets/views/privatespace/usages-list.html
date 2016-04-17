@@ -27,6 +27,7 @@
           <th>Source</th>
           <th>Stock</th>
           <th>Expiry date</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -36,6 +37,7 @@
           <td>{{us.Inventory.HealthCenter.health_facility_name}}</td>
           <td>{{us.amount}}</td>
           <td>{{us.Inventory.date_expire | date:'fullDate'}}</td>
+          <td><a href="" class="btn btn-primary" ng-click="vm.claim(us.Inventory.HealthCenter.id);">Claim</a></td>
         </tr>       
       </tbody>
     </table>
