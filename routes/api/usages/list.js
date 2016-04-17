@@ -9,9 +9,6 @@ module.exports = function(req, res) {
 
     var condition = {
         where: {
-            id: {
-                $ne: req.params.id
-            }
         },
         //attributes: { exclude: ['password', 'password_reset_token', 'password_reset_requested_at', 'created_at', 'updated_at'] },
         include: [
@@ -20,6 +17,11 @@ module.exports = function(req, res) {
                 include: [
                     {
                         model: models.HealthCenter,
+                        where: {
+                            id: {
+                                $ne: req.params.id
+                            }
+                        }
                     },
                     {
                         model: models.GenericName,
