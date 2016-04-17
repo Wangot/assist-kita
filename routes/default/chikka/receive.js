@@ -18,18 +18,18 @@ module.exports = function(req, res, next){
         request_id :req.body.request_id
     };
 
-    console.log(messageData);
-
     var keyword = req.body.message;
     var keywordArr = keyword.split(" ");
     if(keywordArr[0].toUpperCase() == "REG") {
         mChikkaSms.add(messageData).then(function(chikkaSms){
             mUser.findOrAddChikkaSms(chikkaSms).then(function(user){
+                console.log("sasasa", user)
                 mTicket.createChikkaSms(user, chikkaSms).then(function(ticket){
-                    console.log(ticket)
-                })
-            })
-        })
+                    console.log("====>", 'ticket')
+                    return res.status(200).send('POST request to the homepage');
+                }).catch(function(err){console.log(err)})
+            }).catch(function(err){console.log(err)})
+        }).catch(function(err){console.log(err)})
     } else if(keywordArr[0].toUpperCase() == "REQUEST") {
 
         var params = {
@@ -61,9 +61,9 @@ module.exports = function(req, res, next){
             return models.sequelize.transaction(function (t) {
                 return models.AssistanceRequest.create(params, {transaction: t})
             }).then(function(assistanceRequest){
-                res.renderJsonSuccess({ AssistanceRequest: assistanceRequest });
+                return res.renderJsonSuccess({ AssistanceRequest: assistanceRequest });
             }).catch(function(err){ console.log(err)
-                res.renderJsonFail('Failed saving the Assistance Request', err.errors);
+                return res.renderJsonFail('Failed saving the Assistance Request', err.errors);
             });
         }
 
@@ -95,10 +95,10 @@ module.exports = function(req, res, next){
             return models.sequelize.transaction(function (t) {
                 return models.AssistanceRequest.create(params, {transaction: t})
             }).then(function (assistanceRequest) {
-                res.renderJsonSuccess({ AssistanceRequest: assistanceRequest });
+                return res.renderJsonSuccess({ AssistanceRequest: assistanceRequest });
             }).catch(function (err) {
                 console.log(err)
-                res.renderJsonFail('Failed saving the Assistance Request', err.errors);
+                return res.renderJsonFail('Failed saving the Assistance Request', err.errors);
             });
         }
     }
@@ -106,5 +106,5 @@ module.exports = function(req, res, next){
 
     //Process received data
     //Create ticket
-    res.status(200).send('POST request to the homepage');
+    // res.status(200).send('POST request to the homepage');
 }

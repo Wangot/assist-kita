@@ -32,6 +32,15 @@ router.get('/chikka-reg', function(req, res, next){
     require("./chikka/receive")(req, res, next)
 });
 
+router.get('/chikka-reg1', function(req, res, next){
+    req.body.message = "REG Patient_fname1 Patient_lname1 Sumusuka and nag-tatae, pero wala naman nakaing masama..";
+    req.body.mobile_number = "639166976001";
+    req.body.shortcode = "29290170414"
+    req.body.timestamp = new Date();
+
+    require("./chikka/receive")(req, res, next)
+});
+
 router.get('/chikka-sos', function(req, res, next){
     req.body.message = "SOS 10 TaclobanFlood";
     req.body.mobile_number = "639166976000";
