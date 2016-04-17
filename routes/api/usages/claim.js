@@ -15,7 +15,11 @@ module.exports = function(req, res) {
                 id: req.params.id
             },
             include: [
-                models.Inventory
+                models.Inventory,
+                {
+                    model: models.HealthCenter,
+                    where: {id: params.health_center_id}
+                }
             ]
         }).then(function(usage){
             return usage.updateAttribute({status: 'ACTIVE'}, {transaction: t}).then(function(){
