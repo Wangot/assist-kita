@@ -24,7 +24,7 @@ router.get('/login', function(req, res, next) {
 router.post('/chikka/receive', require("./chikka/receive"));
 
 router.get('/chikka-reg', function(req, res, next){
-    req.body.message = "REG Emergency Po, masakit na masakit ang ulo ko.";
+    req.body.message = "REG Patient_fname Patient_lname Emergency Po, masakit na masakit ang ulo ko.";
     req.body.mobile_number = "639166976000";
     req.body.shortcode = "29290170414"
     req.body.timestamp = new Date();
