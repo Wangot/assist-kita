@@ -15,10 +15,14 @@ module.exports = function(req, res) {
                 id: req.params.id
             },
             include: [
-                models.Inventory,
                 {
-                    model: models.HealthCenter,
-                    where: {id: params.health_center_id}
+                    model: smodels.Inventory,
+                    include: [
+                        {
+                            model: models.HealthCenter,
+                            where: {id: params.health_center_id}
+                        }
+                    ]
                 }
             ]
         }).then(function(usage){
