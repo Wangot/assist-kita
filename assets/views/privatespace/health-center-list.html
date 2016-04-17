@@ -43,4 +43,8 @@
     </table>
 
   </div>
+
+  <div class="pull-right">
+    <uib-pagination boundary-links="true" ng-model="vm.page" total-items="vm.totalItems" ng-change="vm.go()" items-per-page="vm.perPage"  class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"  max-size="5" rotate="false"></uib-pagination>
+  </div>
 </div>
