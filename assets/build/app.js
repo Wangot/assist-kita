@@ -366,9 +366,9 @@ function ($routeProvider, $locationProvider) {
       controller: 'UsagesController',
       controllerAs: 'vm'
   })  
-  .otherwise({
-      redirectTo: '/ticket'
-  });
+  // .otherwise({
+  //     redirectTo: '/ticket'
+  // });
 }
 ]);
 },{}],14:[function(require,module,exports){
