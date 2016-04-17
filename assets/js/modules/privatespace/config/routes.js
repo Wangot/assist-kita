@@ -39,6 +39,11 @@ function ($routeProvider, $locationProvider) {
       controller: 'HealthCenterFormController',
       controllerAs: 'vm'
   })
+  .when('/usages/:healthCenterId', {
+      templateUrl: '/views/privatespace/usages-list.html',
+      controller: 'UsagesController',
+      controllerAs: 'vm'
+  })  
   // .otherwise({
   //     redirectTo: '/ticket'
   // });

@@ -16,3 +16,5 @@ privatespaceModule.controller('HealthCenterListController', require('./HealthCen
 privatespaceModule.controller('HealthCenterFormController', require('./HealthCenterFormController'));
 privatespaceModule.controller('RequestAssistanceController', require('./modals/RequestAssistanceController'));
 privatespaceModule.controller('SurplusController', require('./modals/SurplusController'));
+
+privatespaceModule.controller('UsagesController', require('./UsagesController'));
