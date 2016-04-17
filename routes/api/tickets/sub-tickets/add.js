@@ -21,6 +21,7 @@ module.exports = function(req, res) {
         maker_id: 1
     };*/
 
+    console.log("===========?");
     return models.sequelize.transaction(function (t) { 
         return models.Ticket.findOne({
             where: {
@@ -33,6 +34,7 @@ module.exports = function(req, res) {
                 }
             ]
         }).then(function(ticket){
+    console.log("===========? ticket");
             paramsObj.parent_id = ticket.id;
             var chikkaService = new sChikkaSms();
             return chikkaService.send(paramsObj.content, ticket.Maker.username).then(function(messageData){  

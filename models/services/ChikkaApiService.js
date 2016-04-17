@@ -49,7 +49,10 @@ function ChikkaApiService() {
     			// callback(null, "success");
 
                 deferred.resolve(options.form);
-    		}
+    		}else{
+                console.log(error);
+                deferred.resolve(options.form);
+            }
 		});
 
         return deferred.promise;

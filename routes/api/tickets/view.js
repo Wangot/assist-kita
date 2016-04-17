@@ -7,7 +7,14 @@ module.exports = function(req, res) {
         include: [
             {
                 model: models.Ticket,
-                as: "SubTickets"
+                as: "SubTickets",
+                include: [
+                    {
+                        model: models.User,
+                        as: "Maker",
+                        attributes: ['id', 'username']
+                    }
+                ]
             }
         ]
     }).then(function(resultObj){

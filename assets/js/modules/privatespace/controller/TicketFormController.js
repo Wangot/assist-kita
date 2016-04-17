@@ -43,7 +43,8 @@ function TicketController($routeParams, SimpleRestClientService, $location) {
 
   	ticketModel.save(data)
   	.then(function(res) {
-  		 $location('/websites');
+        console.log("not moving")
+  		 $location.path('/ticket');
   	});
 
   }
