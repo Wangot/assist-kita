@@ -24,3 +24,7 @@ body, html {
 	left: 10px;
 	cursor: pointer;
 }
+
+.search-container i {
+	color: #000;
+}

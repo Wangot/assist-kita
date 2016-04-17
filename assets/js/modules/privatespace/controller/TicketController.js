@@ -29,14 +29,20 @@ function TicketController($routeParams, $uibModal, SimpleRestClientService) {
 	    resolve: {
 	    }
 	  });
-
-	  modalInstance.result
-	  .then(function () {
-
-	  }, function () {
-
-	  });
   }
+
+  vm.openHealthCenterModal = function() {
+	  var modalInstance = $uibModal.open({
+	    animation: true,
+	    templateUrl: '/views/privatespace/modals/healtCenterInfo.ejs',
+	    controller: 'HospitalInfoController',
+	    controllerAs: 'vm',
+	    resolve: {
+	    }
+	  });
+  }  
+
+
 
   _init();
 

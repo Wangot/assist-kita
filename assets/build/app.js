@@ -544,14 +544,20 @@ function TicketController($routeParams, $uibModal, SimpleRestClientService) {
 	    resolve: {
 	    }
 	  });
-
-	  modalInstance.result
-	  .then(function () {
-
-	  }, function () {
-
-	  });
   }
+
+  vm.openHealthCenterModal = function() {
+	  var modalInstance = $uibModal.open({
+	    animation: true,
+	    templateUrl: '/views/privatespace/modals/healtCenterInfo.ejs',
+	    controller: 'HospitalInfoController',
+	    controllerAs: 'vm',
+	    resolve: {
+	    }
+	  });
+  }  
+
+
 
   _init();
 
@@ -1070,22 +1076,42 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
     // }); 
 
 
-	function _initMarker(mainMarker) {
-
-    console.log(mainMarker);
-
-	    mainMarker.focus = true;
-	    mainMarker.message = "Hello world";
-	    mainMarker.draggable = true;
-
-  }
-
   var m1 = {
     focus: true,
-    message: 'test',
+    message: 'Your here!',
     draggable: true,
-    lat: 59.91529985112055,
-    lng: 10.749062717187485,
+    lat: 14.5516526,
+    lng: 121.01868019999999
+  }
+
+  vm.openHospitalModal = function() {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: '/views/privatespace/modals/hospitalInfo.ejs',
+      controller: 'HospitalInfoController',
+      controllerAs: 'vm',
+      resolve: {
+      }
+    });
+  }
+
+  vm.openCenterModal = function() {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: '/views/privatespace/modals/healthCenterInfo.ejs',
+      controller: 'HospitalInfoController',
+      controllerAs: 'vm',
+      resolve: {
+      }
+    });
+  }  
+
+  var m2 = {
+    message: 'Makati Med <br/><a href="" ng-click="vm.openHospitalModal()">View Details</a>',
+    getMessageScope: function() { return $scope; },
+    draggable: false,
+    lat: 14.554425591971786,
+    lng: 121.00449085235596,
     icon: {
         iconUrl: 'images/hospital.png',
         // shadowUrl: 'img/leaf-shadow.png',
@@ -1095,14 +1121,13 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
         shadowAnchor: [4, 62],  // the same for the shadow
         popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     }
-  }
+  } 
 
-  var m2 = {
-    focus: true,
-    message: 'test',
-    draggable: true,
-    lat: 59.91529985112060,
-    lng: 10.749062717187480,
+  var m3 = {
+    message: 'Mercury Drug',
+    draggable: false,
+    lat: 14.560656228547455,
+    lng: 121.02925300598146,
     icon: {
         iconUrl: 'images/medicine.png',
         // shadowUrl: 'img/leaf-shadow.png',
@@ -1112,17 +1137,54 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
         shadowAnchor: [4, 62],  // the same for the shadow
         popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
     }
-  }  
+  }
+
+  var m4 = {
+    message: 'Poblacion Health Center <br/><a href="" ng-click="vm.openCenterModal()">View Details</a>',
+    getMessageScope: function() { return $scope; },    
+    draggable: false,
+    lat: 14.559617801337644,
+    lng: 121.02152824401855,
+    icon: {
+        iconUrl: 'images/hospital.png',
+        // shadowUrl: 'img/leaf-shadow.png',
+        iconSize:     [38, 50], // size of the icon
+        shadowSize:   [50, 64], // size of the shadow
+        iconAnchor:   [22, 80], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    }
+  } 
+
+  var m5 = {
+    message: 'The Generics Pharmacy',
+    draggable: false,
+    lat: 14.546740897923646,
+    lng: 121.01556301116943,
+    icon: {
+        iconUrl: 'images/medicine.png',
+        // shadowUrl: 'img/leaf-shadow.png',
+        iconSize:     [38, 50], // size of the icon
+        shadowSize:   [50, 64], // size of the shadow
+        iconAnchor:   [22, 80], // point of the icon which will correspond to marker's location
+        shadowAnchor: [4, 62],  // the same for the shadow
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    }
+  }
+
 
  angular.extend(this, {
       center: {
           lat: m1.lat,
           lng: m1.lng,
-          zoom: 8
+          zoom: 15
       },
       markers: {
           m1: m1,
-          m2: m2
+          m2: m2,
+          m3: m3,
+          m4: m4,
+          m5: m5
       },
       position: {
           lat: 51,
@@ -1140,7 +1202,12 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
 	$scope.$on("leafletDirectiveMarker.dragend", function(event, args){
 	        vm.position.lat = args.model.lat;
 	        vm.position.lng = args.model.lng;
+          console.log(args.model);
 	});
+
+  $scope.$on("leafletDirectiveMarker.click", function(event, args){
+    console.log(event, args);
+  });  
 
   vm.openSearchModal = function() {
     var modalInstance = $uibModal.open({
@@ -1159,7 +1226,20 @@ function landingController($routeParams, geolocation, $scope, $uibModal) {
 
     });
   }
+
+  vm.openLanguageModal = function() {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: '/views/privatespace/modals/languageChoices.ejs',
+      controller: 'LandingSearchController',
+      controllerAs: 'vm',
+      resolve: {
+      }
+    });
+  }  
   
+
+
 
     /*
 
