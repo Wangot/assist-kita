@@ -11,12 +11,12 @@ module.exports = function(req, res) {
 
     return models.sequelize.transaction(function (t) { 
         return models.Usage.findOne({
-            where: {
-                id: req.params.id
-            },
+            // where: {
+            //     id: req.params.id
+            // },
             include: [
                 {
-                    model: smodels.Inventory,
+                    model: models.Inventory,
                     include: [
                         {
                             model: models.HealthCenter,
